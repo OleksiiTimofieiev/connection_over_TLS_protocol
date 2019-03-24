@@ -1,0 +1,1 @@
+gcc aes_experiments.c -I/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/mbedtls -L/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib -lmbedtls -lmbedx509 -lmbedcrypto
