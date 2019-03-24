@@ -8,6 +8,7 @@ SRCS_CLIENT     = $(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = $(addprefix ./srcs/server/, $(SERVER_CODE))
 
 CFLAGS			= -Wall -Wextra -Werror
+
 OBJECTS_CLIENT 	= $(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= $(SRCS_SERVER:.c=.o)
 
