@@ -33,7 +33,7 @@ void udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
 
     printf("udp client said: %s\n", buffer);
 
-    if (bytes < 0)
+    if (bytes == 0)
     {
      ev_io_stop(loop, watcher);
       perror("peer might closing");
