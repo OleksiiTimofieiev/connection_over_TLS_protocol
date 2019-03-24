@@ -44,6 +44,7 @@ int main() {
           0, (const struct sockaddr *) &servaddr,  
               sizeof(servaddr)); 
       // printf("Hello message sent.\n"); 
+      // usleep() takes microseconds, so you will have to multiply the input by 1000 in order to sleep in milliseconds.
       usleep(3000000);
 
       y++;
