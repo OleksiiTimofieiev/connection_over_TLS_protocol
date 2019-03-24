@@ -29,20 +29,20 @@ all: $(CLIENT) $(SERVER)
 $(CLIENT): $(OBJECTS_CLIENT)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
 	@ gcc    $(CFLAGS) $(SRCS_CLIENT) -lev -o $(CLIENT)
-	@ echo  "$(YELLOW) : OK$(RESET)"
+	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
 	@ gcc -c $(CFLAGS) $< -o $@
-	@ echo  "$(YELLOW)█$(RESET)\c)"
+# 	@ echo  "$(YELLOW)█$(RESET)\c)"
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
 	@ gcc    $(CFLAGS) $(SRCS_SERVER) -lev -o $(SERVER)
-	@ echo  "$(YELLOW) : OK$(RESET)"
+	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
 	@ gcc -c $(CFLAGS) $< -o $@
-	@ echo  "$(YELLOW)█$(RESET)\c)"
+# 	@ echo  "$(YELLOW)█$(RESET)\c)"
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)
