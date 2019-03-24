@@ -1,0 +1,41 @@
+NAME			= client
+
+CORE			= client.c \
+			
+SRCS        	= $(addprefix srcs/, $(CORE))
+
+CFLAGS			= -Wall -Wextra -Werror
+OBJECTS 		= $(SRCS:.c=.o)
+# LIB				= #./libft.a
+# INC				= #./includes/ft_select.h
+
+#colors
+RESET			= \033[m
+RED         	= \033[1;31m
+GREEN       	= \033[01;38;05;46m
+YELLOW      	= \033[01;38;05;226m
+BLUE        	= \033[03;38;05;21m
+VIOLET      	= \033[01;38;05;201m
+CYAN        	= \033[1;36m
+WHITE       	= \033[01;38;05;15m
+
+all: $(NAME)
+
+$(NAME): $(OBJECTS)
+# 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(NAME)
+	@ gcc    $(CFLAGS) $(SRCS) -lev -o $(NAME)
+	@ echo  "$(YELLOW) : OK$(RESET)"
+
+$(OBJECTS): %.o: %.c
+	@ gcc -c $(CFLAGS) $< -o $@
+	@ echo  "$(YELLOW)█$(RESET)\c)"
+
+clean:
+	@ rm -f $(OBJECTS)
+
+fclean: clean
+	@ rm -f $(NAME) $(LIB)
+
+re: fclean all
+
+.PHONY: all clean fclean re
