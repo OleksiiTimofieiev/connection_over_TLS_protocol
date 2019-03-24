@@ -1,50 +1,54 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <netinet/in.h>
-#include <string.h>
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <string.h> 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <arpa/inet.h> 
+#include <netinet/in.h> 
 
-#define SERVER_PORT 3333
-#define BUFFER_SIZE 1024
+// gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
+  
+#define PORT     3333 
+#define MAXLINE 1024 
+  
+// Driver code 
+int main() { 
+    int sockfd; 
+    // char buffer[MAXLINE]; 
+    // char *hello = "Hello from client"; 
+    struct sockaddr_in     servaddr; 
+  
+    // Creating socket file descriptor 
+    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+        perror("socket creation failed"); 
+        exit(EXIT_FAILURE); 
+    } 
+  
+    memset(&servaddr, 0, sizeof(servaddr)); 
+      
+    // Filling server information 
+    servaddr.sin_family = AF_INET; 
+    servaddr.sin_port = htons(PORT); 
+    servaddr.sin_addr.s_addr = INADDR_ANY; 
+      
+    // int n, len; 
 
-int main()
-{
-    int sd;
-    struct sockaddr_in addr;
-    int addr_len = sizeof(addr);
-    char buffer[BUFFER_SIZE] = "";
+    int y = 0;
 
-    // Create client socket
-    if( (sd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 )
+    char *buf ="test2";
+
+    while (y < 10)
     {
-      perror("socket error");
-      return -1;
-    }
+      sendto(sockfd, (const char *)buf, strlen(buf), 
+          0, (const struct sockaddr *) &servaddr,  
+              sizeof(servaddr)); 
+      // printf("Hello message sent.\n"); 
+      usleep(3000000);
 
-    bzero(&addr, sizeof(addr));
-
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(SERVER_PORT);
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);
-
-    // Connect to server socket
-    if(connect(sd, (struct sockaddr *)&addr, sizeof addr) < 0)
-    {
-      perror("Connect error");
-      return -1;
-    }
-    else
-    {
-      printf("%s\n", "fuck yeah");
-    }
-
-    while (strcmp(buffer, "q") != 0)
-    {
-      // Read input from user and send message to the server
-      gets(buffer);
-      sendto(sd, buffer, strlen(buffer), 
-          0, (const struct sockaddr *) &addr,  
-              sizeof(addr)); 
-    }
-
-    return 0;
-}
+      y++;
+    }      
+  
+    close(sockfd); 
+    return 0; 
+} 

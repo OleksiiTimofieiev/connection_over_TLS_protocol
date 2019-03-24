@@ -18,14 +18,28 @@ int addr_len = sizeof(addr);
 char buffer[BUF_SIZE];
 
 // This callback is called when data is readable on the UDP socket.
-static void udp_cb(EV_P_ ev_io *w, int revents) {
-    puts("udp socket has become readable");
-    socklen_t bytes = recvfrom(sd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
+void udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
+// static void udp_cb(EV_P_ ev_io *w, int revents) {
+    if(EV_ERROR & revents)
+    {
+      perror("got invalid event");
+      return;
+    }
+    // puts("udp socket has become readable");
+    int bytes = recvfrom(watcher->fd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
 
     // add a null to terminate the input, as we're going to use it as a string
     buffer[bytes] = '\0';
 
-    printf("udp client said: %s", buffer);
+    printf("udp client said: %s\n", buffer);
+
+    if (bytes < 0)
+    {
+     ev_io_stop(loop, watcher);
+      perror("peer might closing");
+     } // free(watcher);
+
+    // (void *)*w;
 
     // Echo it back.
     // WARNING: this is probably not the right way to do it with libev.
