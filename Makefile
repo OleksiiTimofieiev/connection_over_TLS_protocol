@@ -16,13 +16,8 @@ OBJECTS_SERVER 	= $(SRCS_SERVER:.c=.o)
 
 #colors
 RESET			= \033[m
-RED         	= \033[1;31m
 GREEN       	= \033[01;38;05;46m
 YELLOW      	= \033[01;38;05;226m
-BLUE        	= \033[03;38;05;21m
-VIOLET      	= \033[01;38;05;201m
-CYAN        	= \033[1;36m
-WHITE       	= \033[01;38;05;15m
 
 all: $(CLIENT) $(SERVER)
 
