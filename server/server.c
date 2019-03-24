@@ -1,97 +1,59 @@
-/* 
- * udpserver.c - A simple UDP echo server 
- * usage: udpserver <port>
- */
-
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <string.h>
-#include <netdb.h>
-#include <sys/types.h> 
+#include <stdlib.h>
+#include <ev.h>
+
+#include <errno.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <resolv.h>
+#include <unistd.h>
 
-#define BUFSIZE 1024
+#define DEFAULT_PORT    3333
+#define BUF_SIZE        1024
 
-/*
- * error - wrapper for perror
- */
-void error(char *msg) {
-  perror(msg);
-  exit(1);
+// Lots of globals, what's the best way to get rid of these?
+int sd; // socket descriptor
+struct sockaddr_in addr;
+int addr_len = sizeof(addr);
+char buffer[BUF_SIZE];
+
+// This callback is called when data is readable on the UDP socket.
+static void udp_cb(EV_P_ ev_io *w, int revents) {
+    puts("udp socket has become readable");
+    socklen_t bytes = recvfrom(sd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
+
+    // add a null to terminate the input, as we're going to use it as a string
+    buffer[bytes] = '\0';
+
+    printf("udp client said: %s", buffer);
+
+    // Echo it back.
+    // WARNING: this is probably not the right way to do it with libev.
+    // Question: should we be setting a callback on sd becomming writable here instead?
+    // sendto(sd, buffer, bytes, 0, (struct sockaddr*) &addr, sizeof(addr));
 }
 
-int main(int argc, char **argv) {
-  int sockfd; /* socket */
-  int portno; /* port to listen on */
-  int clientlen; /* byte size of client's address */
-  struct sockaddr_in serveraddr; /* server's addr */
-  struct sockaddr_in clientaddr; /* client addr */
-  struct hostent *hostp; /* client host info */
-  char buf[BUFSIZE]; /* message buf */
-  char *hostaddrp; /* dotted decimal host addr string */
-  int optval; /* flag value for setsockopt */
-  int n; /* message byte size */
+int main(void) {
+    int port = DEFAULT_PORT;
+    puts("udp_echo server started...");
 
-  /* 
-   * check command line arguments 
-   */
-  if (argc != 2) {
-    fprintf(stderr, "usage: %s <port>\n", argv[0]);
-    exit(1);
-  }
-  portno = atoi(argv[1]);
+    // Setup a udp listening socket.
+    sd = socket(PF_INET, SOCK_DGRAM, 0);
+    bzero(&addr, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
+    if (bind(sd, (struct sockaddr*) &addr, sizeof(addr)) != 0)
+        perror("bind");
 
-  /* 
-   * socket: create the parent socket 
-   */
-  sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-  if (sockfd < 0) 
-    error("ERROR opening socket");
+    // Do the libev stuff.
+    struct ev_loop *loop = ev_default_loop(0);
+    ev_io udp_watcher;
+    ev_io_init(&udp_watcher, udp_cb, sd, EV_READ);
+    ev_io_start(loop, &udp_watcher);
+    ev_loop(loop, 0);
 
-  /* setsockopt: Handy debugging trick that lets 
-   * us rerun the server immediately after we kill it; 
-   * otherwise we have to wait about 20 secs. 
-   * Eliminates "ERROR on binding: Address already in use" error. 
-   */
-  optval = 1;
-  setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, 
-         (const void *)&optval , sizeof(int));
-
-  /*
-   * build the server's Internet address
-   */
-  bzero((char *) &serveraddr, sizeof(serveraddr));
-  serveraddr.sin_family = AF_INET;
-  serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  serveraddr.sin_port = htons((unsigned short)portno);
-
-  /* 
-   * bind: associate the parent socket with a port 
-   */
-  if (bind(sockfd, (struct sockaddr *) &serveraddr, 
-       sizeof(serveraddr)) < 0) 
-    error("ERROR on binding");
-
-  /* 
-   * main loop: wait for a datagram, then echo it
-   */
-  clientlen = sizeof(clientaddr);
-  while (1) {
-
-    /*
-     * recvfrom: receive a UDP datagram from a client
-     */
-    bzero(buf, BUFSIZE);
-    n = recvfrom(sockfd, buf, BUFSIZE, 0,
-         (struct sockaddr *) &clientaddr, &clientlen);
-    printf("%s\n", buf);
-
-    if (n < 0)
-      error("ERROR in recvfrom");
-
-    
-  }
+    // This point is never reached.
+    close(sd);
+    return EXIT_SUCCESS;
 }
