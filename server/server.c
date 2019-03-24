@@ -11,6 +11,8 @@
 #define DEFAULT_PORT    3333
 #define BUF_SIZE        1024
 
+// gcc -Wall -Wextra -Werror -o server server.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
+
 // Lots of globals, what's the best way to get rid of these?
 int sd; // socket descriptor
 struct sockaddr_in addr;
