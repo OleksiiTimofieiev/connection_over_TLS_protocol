@@ -28,7 +28,7 @@ all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-	@ gcc    $(CFLAGS) $(SRCS_CLIENT) -lev -o $(CLIENT)
+	@ gcc    $(CFLAGS) $(SRCS_CLIENT) -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
