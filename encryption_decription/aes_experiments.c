@@ -57,7 +57,7 @@ int		main(void)
 	memset(key, 0, 32);
 
 
-	char *pers = "aes generate key woohoo"; // random line for the key generation ;
+	char *pers = "and here comes some line for key generation"; // random line for the key generation ;
 	
 	int ret;
 
