@@ -24,6 +24,7 @@ all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
+# gcc aes_experiments.c -lmbedtls -lmbedcrypto
 	@ gcc    $(CFLAGS) $(SRCS_CLIENT) -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 

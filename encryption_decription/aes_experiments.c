@@ -214,7 +214,7 @@ int		main(void)
 	
 
 
-	printf("result-> ");
+	printf("result -> ");
 
 	while (i < 128)
 	{
