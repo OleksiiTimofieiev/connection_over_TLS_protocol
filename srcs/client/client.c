@@ -11,10 +11,13 @@
  
 // TODO: clear out all comments;
 // TODO: clear out Makefile -> -I$(INC_SERVER)
+
 int 					sockfd;
+struct sockaddr_in 		servaddr;
 unsigned char			string_iterator[MAX_ITERATOR_SIZE];
 
 void  	sig_handle(int sgnal);
+void	init_socket(short port);
 
 int		main(int argc, char **argv)
 {
@@ -42,19 +45,7 @@ int		main(int argc, char **argv)
 
 	/* *************************************** socket initializatiion *************************** */
 	
-    struct sockaddr_in 		servaddr; 
-  
-    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
-        perror("socket creation failed"); 
-        exit(EXIT_FAILURE); 
-    } 
-  
-    memset(&servaddr, 0, sizeof(servaddr)); 
-      
-    servaddr.sin_family = AF_INET; 
-    servaddr.sin_port = htons(port); 
-    servaddr.sin_addr.s_addr = INADDR_ANY; 
-      
+	init_socket(port);
 
     while (42)
     {
@@ -90,7 +81,22 @@ void  sig_handle(int signal)
 			i++;
 
 		printf("\nPackets have been sent: %s\n", &string_iterator[i]);
-		
+
 		exit(0);
 	}
+}
+
+void	init_socket(short port)
+{
+  
+    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+        perror("socket creation failed"); 
+        exit(EXIT_FAILURE); 
+    } 
+  
+    memset(&servaddr, 0, sizeof(servaddr)); 
+      
+    servaddr.sin_family = AF_INET; 
+    servaddr.sin_port = htons(port); 
+    servaddr.sin_addr.s_addr = INADDR_ANY; 
 }
