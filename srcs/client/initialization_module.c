@@ -38,5 +38,5 @@ void	client_configuration(char **argv, unsigned char *id, int *delay, short *por
 	*port 		 = atoi(&argv[3][3]);
 
 	memset(iterator, 0, MAX_ITERATOR_SIZE);
-	iterator[MAX_ITERATOR_SIZE] = '0';
+	iterator[MAX_ITERATOR_SIZE - 1] = '0';
 }

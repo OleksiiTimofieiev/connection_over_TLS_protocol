@@ -32,28 +32,24 @@ size_t	str_len(unsigned char *str)
 
 void	add_to_string(unsigned char *str)
 {
-	if (str[MAX_ITERATOR_SIZE] <= '8')
-	{
-		str[MAX_ITERATOR_SIZE] += 1;
-		printf("%c\n", str[MAX_ITERATOR_SIZE]);
-	}
+	if (str[MAX_ITERATOR_SIZE - 1] <= '8')
+		str[MAX_ITERATOR_SIZE - 1] += 1;
 	else
 	{
-		printf("%s\n", "here");
-		size_t 	length_till_end = str_len(str);
-
-		printf("length_till_end -> %zu\n", length_till_end);
+		size_t 	length_till_end = str_len(str) - 1;
 
 		while (length_till_end)
 		{
 			if (str[length_till_end] <= '8')
 			{
-				str[length_till_end] += 1;
-
+				if (str[length_till_end] == 0)
+					str[length_till_end] = '1';
+				else
+					str[length_till_end] += 1;
 				break ;
 			}
 			else
-				str[length_till_end] = '1';
+				str[length_till_end] = '0';
 			length_till_end--;
 		}
 	}
@@ -62,7 +58,7 @@ void	add_to_string(unsigned char *str)
 
 void	line_composer(unsigned char *dst, unsigned char *src)
 {
-	size_t		len = strlen( (char *)dst );
+	// size_t		len = strlen( (char *)dst );
 	size_t		copy_start = 0;
 	size_t		i = 0;
 
@@ -73,19 +69,16 @@ void	line_composer(unsigned char *dst, unsigned char *src)
 		i++;
 	}
 
-	printf("copy_start -> %zu\n", copy_start);
-
-	memcpy(&dst[len], &src[i], MAX_ITERATOR_SIZE - copy_start);
+	memcpy(&dst[8], &src[i], MAX_ITERATOR_SIZE - copy_start);
 }
 
 int main(int argc, char **argv)
 {
-	unsigned char	id[ID_SIZE] 		= { 0 };
-	int				delay 				= 0; /* task documentation - specify intervals of input */
-	short			port 				= 0; /* task documentation - specify intervals of input */
-	unsigned char	iterator[256];
-	// unsigned char 	padding				= 0x0;
-	unsigned char 	initial_packet[256] = { 0 };
+	unsigned char	id[ID_SIZE] 						= { 0 };
+	int				delay 								= 0; /* task documentation - specify intervals of input */
+	short			port 								= 0; /* task documentation - specify intervals of input */
+	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
+	unsigned char	iterator[MAX_ITERATOR_SIZE];
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -94,49 +87,20 @@ int main(int argc, char **argv)
 	}
 
 	client_configuration(argv, id, &delay, &port, iterator);
-
-	printf("id    	 -> %s\n", id);
-	printf("delay 	 -> %d\n", delay);
-	printf("port  	 -> %d\n", port);
-	printf("iterator -> %d\n", iterator[3]);
-
 	
 
-	// unsigned char *test1 = (unsigned char *)"test1";
-	// unsigned char *test2 = (unsigned char *)"test2";
-	// unsigned char *test3 = (unsigned char *)"test3";
+	/* remaster */
+	memcpy(initial_packet, id, ID_SIZE);
 
 
-	line_composer(initial_packet, id);
-	// reverse(iterator);
+	// printf("id    	 -> %s\n", id);
+	// printf("delay 	 -> %d\n", delay);
+	// printf("port  	 -> %d\n", port);
+	// printf("iterator -> %d\n", iterator[3]);
 
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
-	add_to_string(iterator);
 
-	add_to_string(iterator);
 
 	
-
-
-
-
-	line_composer(initial_packet, iterator);
-	// reverse(&initial_packet[8]);
-	// line_composer(initial_packet, test3);
-
-
-
-	printf("initial packet -> %s\n", initial_packet);
-
-	// printf("test -> %c\n", '0');
-
 
     int sockfd; 
     // char buffer[MAXLINE]; 
@@ -156,23 +120,26 @@ int main(int argc, char **argv)
     servaddr.sin_port = htons(port); 
     servaddr.sin_addr.s_addr = INADDR_ANY; 
       
-    // int n, len; 
 
-    // int y = 0;
-
-    char *buf ="test2";
-
+    int i = 0;
     while (42)
     {
-      sendto(sockfd, (const char *)buf, strlen(buf), 
-          0, (const struct sockaddr *) &servaddr,  
-              sizeof(servaddr)); 
-      printf("Hello message sent.\n"); 
-      
-      usleep(delay);
 
-      // y++;
-      system("leaks -q client_app");
+     	sendto(sockfd, (const unsigned char *)initial_packet, INITIAL_PACKET_SIZE, 
+         			0, (const struct sockaddr *) &servaddr, sizeof(servaddr)); 
+ 		
+ 		line_composer(initial_packet, iterator);
+ 		
+     	printf("%s\n", initial_packet);
+ 		add_to_string(iterator);
+ 		line_composer(initial_packet, iterator);
+
+      	usleep( delay / 1000);
+
+     	// system("leaks -q client_app");
+      	i++;
+      	if (i == 5)
+      		break;
     }      
   
     close(sockfd); 
