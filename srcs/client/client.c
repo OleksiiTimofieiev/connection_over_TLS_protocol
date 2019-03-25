@@ -72,13 +72,12 @@ void	line_composer(unsigned char *dst, unsigned char *src)
 	memcpy(&dst[8], &src[i], MAX_ITERATOR_SIZE - copy_start);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	// unsigned char	id[ID_SIZE] 						= { 0 };
 	int				delay 								= 0; /* task documentation - specify intervals of input */
 	short			port 								= 0; /* task documentation - specify intervals of input */
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
-	unsigned char	iterator[MAX_ITERATOR_SIZE];
+	unsigned char	string_iterator[MAX_ITERATOR_SIZE];
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -86,10 +85,10 @@ int main(int argc, char **argv)
 		exit (0);
 	}
 
-	client_configuration(argv, initial_packet, &delay, &port, iterator);
+	client_configuration(argv, initial_packet, &delay, &port, string_iterator);
 	
 
-	/* remaster */
+
 
 
 	// printf("id    	 -> %s\n", id);
@@ -123,11 +122,11 @@ int main(int argc, char **argv)
      	sendto(sockfd, (const unsigned char *)initial_packet, INITIAL_PACKET_SIZE, 
          			0, (const struct sockaddr *) &servaddr, sizeof(servaddr)); 
  		
- 		line_composer(initial_packet, iterator);
+ 		line_composer(initial_packet, string_iterator);
  		
      	printf("%s\n", initial_packet);
- 		add_to_string(iterator);
- 		line_composer(initial_packet, iterator);
+ 		add_to_string(string_iterator);
+ 		line_composer(initial_packet, string_iterator);
 
       	usleep( delay / 1000);
 
