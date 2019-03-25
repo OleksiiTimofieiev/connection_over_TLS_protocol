@@ -22,22 +22,22 @@ bool	validation_of_program_arguments(int argc, char **argv)
 {
 	if 		(argc != 4) 									
 	{
-		printf("%s\n", "Not full command arguments.");
+		printf("error: %s\n", "Not full command arguments.");
 		return (false);
 	}
 	else if (strlen(argv[1]) > 8)
 	{
-		printf("%s\n", "Client id has to be in limits of 8 chars and not NULL.");
+		printf("error: %s\n", "Client id has to be in limits of 8 chars and not NULL.");
 		return (false);
 	} 	
 	else if (atoi(argv[2]) <= 0)
 	{
-		printf("%s\n", "Delay parameter has to be > 0.");
+		printf("error: %s\n", "Delay parameter has to be > 0.");
 		return (false);
 	}
 	else if (atoi(&argv[3][3]) <= 0)
 	{
-		printf("%s\n", "Port number has to be > 0.");
+		printf("error: %s\n", "Port number has to be > 0.");
 		return (false);
 	}
 	return 	(true);
@@ -60,7 +60,6 @@ int main(int argc, char **argv)
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
-		printf("%s\n", "Invalide command arguments.");
 		printf("%s\n", "usage: <id> <delay> <ip:port>");
 		exit (0);
 	}
