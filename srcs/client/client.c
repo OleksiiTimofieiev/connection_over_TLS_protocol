@@ -20,10 +20,27 @@
   
 bool	validation_of_program_arguments(int argc, char **argv)
 {
-	if 		(argc != 4) 									return (false);
-	else if (strlen(argv[1]) > 8) 							return (false);
-	else if (atoi(argv[2]) <= 0 || atoi(&argv[3][3]) <= 0) 	return (false);
-	else													return 	(true);
+	if 		(argc != 4) 									
+	{
+		printf("%s\n", "Not full command arguments.");
+		return (false);
+	}
+	else if (strlen(argv[1]) > 8)
+	{
+		printf("%s\n", "Client id has to be in limits of 8 chars and not NULL.");
+		return (false);
+	} 	
+	else if (atoi(argv[2]) <= 0)
+	{
+		printf("%s\n", "Delay parameter has to be > 0.");
+		return (false);
+	}
+	else if (atoi(&argv[3][3]) <= 0)
+	{
+		printf("%s\n", "Port number has to be > 0.");
+		return (false);
+	}
+	return 	(true);
 }
 
 void	client_configuration(char **argv, char *id, int *delay, short *port)
@@ -44,7 +61,7 @@ int main(int argc, char **argv)
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
 		printf("%s\n", "Invalide command arguments.");
-		printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
+		printf("%s\n", "usage: <id> <delay> <ip:port>");
 		exit (0);
 	}
 
