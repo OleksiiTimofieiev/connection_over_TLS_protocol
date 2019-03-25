@@ -5,15 +5,30 @@
 #include <sys/types.h> 
 #include <sys/socket.h> 
 #include <arpa/inet.h> 
-#include <netinet/in.h> 
+#include <netinet/in.h>
+#include <stdbool.h> 
 
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
 #define PORT     3333 
 #define MAXLINE 1024 
   
+bool	validation_of_program_arguments(int argc, char **argv)
+{
+	if (argc != 4 || strlen(argv[1]) > 8)
+	{
+		printf("%s\n", "Invalide command arguments.");
+		printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
+		return (false);
+	}
+	return (true);
+}
+
 // Driver code 
-int main() { 
+int main(int argc, char **argv)
+{
+	if (!(validation_of_program_arguments(argc, argv)))
+		exit (0);
     int sockfd; 
     // char buffer[MAXLINE]; 
     // char *hello = "Hello from client"; 
