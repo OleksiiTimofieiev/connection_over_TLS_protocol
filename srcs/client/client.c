@@ -54,6 +54,51 @@ void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_pack
         exit(1);
 }
 
+void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet)
+{
+	int 				ret;
+	mbedtls_aes_context aes;
+
+	mbedtls_aes_init(&aes);
+
+	ret = mbedtls_aes_setkey_enc( &aes, key, 256 );
+
+	// if (ret == 0)
+	// 	printf("%s\n", "successs on init of the key");
+	// else
+	// 	printf("%s\n", "wtf ?");
+
+	ret = mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, initial_full_packet, encrypted_full_packet );
+
+	// if (ret == 0)
+	// 	printf("%s\n", "successs on encription");
+	// else
+	// 	printf("%s\n", "wtf ?");
+}
+
+void	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output)
+{
+	int 				ret;
+	mbedtls_aes_context aes;
+
+	mbedtls_aes_init(&aes);
+
+	ret = mbedtls_aes_setkey_dec( &aes, key, 256 );
+
+	// if (ret == 0)
+	// 	printf("%s\n", "successs on init of the key");
+	// else
+	// 	printf("%s\n", "wtf ?");
+
+	ret = mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_DECRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, input, output );
+
+	// if (ret == 0)
+	// 	printf("%s\n", "successs on decription");
+	// else
+	// 	printf("%s\n", "wtf ?");
+
+}
+
 int		main(int argc, char **argv)
 {
 	/* **************************************** signal definition ******************************** */
@@ -93,9 +138,20 @@ int		main(int argc, char **argv)
 	unsigned char digest[DIGEST_SIZE];
 
 
-   /* *************************************** packet + checksum ********************************* */
+   	/* *************************************** packet + checksum ********************************* */
 
 	unsigned char initial_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
+
+	/* *************************************** encryption ********************************* */
+
+	unsigned char encrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
+
+	const unsigned char iv_buf[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
+	
+	unsigned char iv[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
+
+
+	unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
 
     // for( i = 0; i < 16; i++ )
     //     mbedtls_printf( "%02x", digest[i] );
@@ -121,13 +177,34 @@ int		main(int argc, char **argv)
 		memcpy(initial_full_packet, initial_packet, 256);
 		memcpy(&initial_full_packet[256], digest, 16);
 
+		memcpy(iv, iv_buf, 16);
+
+		aes_encrypt(iv, key, initial_full_packet, encrypted_full_packet);
+
+
+
+
+
+
 
 		int i = 0;
 
 		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
-     		printf("%x "
-     			, initial_full_packet[i++]);
+     		printf("%x ", initial_full_packet[i++]);
      	printf("\n");
+
+		memcpy(iv, iv_buf, 16);
+
+		aes_decrypt(iv, key, encrypted_full_packet, decrypted_full_packet);
+
+		i = 0;
+
+		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
+     		printf("%x ", decrypted_full_packet[i++]);
+     	printf("\n");
+
+
+
 
      	sendto(sockfd, (const unsigned char *)initial_packet, INITIAL_PACKET_SIZE, 0, (const struct sockaddr *) &servaddr, sizeof(servaddr)); 
  		
@@ -139,7 +216,7 @@ int		main(int argc, char **argv)
 
       	delete++;
 
-      	if (delete == 2)
+      	if (delete == 1)
       		break ;
 
      	// system("leaks -q client_app");
