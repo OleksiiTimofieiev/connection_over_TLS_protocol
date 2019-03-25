@@ -12,8 +12,8 @@ CFLAGS			= -Wall -Wextra -Werror
 OBJECTS_CLIENT 	= $(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= $(SRCS_SERVER:.c=.o)
 
-# LIB				= #./libft.a
-# INC				= #./includes/ft_select.h
+INC_SERVER		= /Users/otimofie/.brew/Cellar/libev/4.24/include/
+LIBEV_PATH		= /Users/otimofie/.brew/Cellar/libev/4.24/lib/
 
 #colors
 RESET			= \033[m
@@ -33,11 +33,11 @@ $(OBJECTS_CLIENT): %.o: %.c
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-	@ gcc    $(CFLAGS) $(SRCS_SERVER) -lev -o $(SERVER)
+	@ gcc    $(CFLAGS) -I$(INC_SERVER) $(SRCS_SERVER) -L$(LIBEV_PATH) -lev -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
-	@ gcc -c $(CFLAGS) $< -o $@
+	@ gcc -c $(CFLAGS) -I$(INC_SERVER) $< -o $@
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)

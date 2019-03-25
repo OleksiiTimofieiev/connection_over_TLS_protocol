@@ -20,6 +20,8 @@
  
 // TODO: clear out all comments;
 
+// TODO: clear out Makefile
+
 #define PORT     				3333 // delete 
 
 #define ID_SIZE 				8
