@@ -23,6 +23,45 @@ unsigned char			string_iterator[MAX_ITERATOR_SIZE];
 void  	sig_handle(int sgnal);
 void	init_socket(short port);
 
+void	aes_key_generation(unsigned char *key) // container for the key ;)
+{
+	/* key generation section */
+	/* ----------------------------------------------------------------------------- */
+
+	mbedtls_ctr_drbg_context 	ctr_drbg;
+
+	mbedtls_entropy_context 	entropy;
+
+	
+
+	memset(key, 0, 32);
+
+
+	char *pers = "and here comes some line for key generation"; // random line for the key generation ;
+	
+	int ret;
+
+	mbedtls_entropy_init( &entropy );
+
+	mbedtls_ctr_drbg_init( &ctr_drbg );
+
+	if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy, (unsigned char *) pers, strlen( pers ) ) ) != 0 )
+	{
+	    printf( " failed\n ! mbedtls_ctr_drbg_init returned -0x%04x\n", -ret );
+	    
+	    // goto exit;
+	}
+
+	if( ( ret = mbedtls_ctr_drbg_random( &ctr_drbg, key, 32 ) ) != 0 )
+	{
+	    printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
+	    
+	    // goto exit;
+	}
+
+
+}
+
 int		main(int argc, char **argv)
 {
 	/* **************************************** signal definition ******************************** */
@@ -53,7 +92,23 @@ int		main(int argc, char **argv)
 
 	/* *************************************** aes key generation ******************************* */
 
-	
+	unsigned char key[32];
+
+	aes_key_generation(key);
+
+		int j = 0;
+
+	printf("key -> ");
+
+	while (j < 32)
+	{
+		printf("%d ", key[j++]);
+	}
+
+	printf("\n");
+
+
+	int delete = 0;
 
     while (42)
     {
@@ -68,6 +123,11 @@ int		main(int argc, char **argv)
  		counter_line_composer(initial_packet, string_iterator);
 
       	usleep( delay / 1000);
+
+      	delete++;
+
+      	if (delete == 5)
+      		break ;
 
      	// system("leaks -q client_app");
     }      
