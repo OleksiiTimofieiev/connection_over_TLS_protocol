@@ -15,7 +15,6 @@
 // TODO: initialization_module.c;
 // TODO: encription_module.c;
 
-
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
 #define PORT     3333 
