@@ -10,6 +10,7 @@
 
 // TODO: delete all comments;
 // TODO: defines to header;
+// TODO: detect connection refused in UDP;
 
 // TODO: initialization module;
 
@@ -93,20 +94,20 @@ int main(int argc, char **argv)
       
     // int n, len; 
 
-    int y = 0;
+    // int y = 0;
 
     char *buf ="test2";
 
-    while (y < 10)
+    while (42)
     {
       sendto(sockfd, (const char *)buf, strlen(buf), 
           0, (const struct sockaddr *) &servaddr,  
               sizeof(servaddr)); 
-      // printf("Hello message sent.\n"); 
+      printf("Hello message sent.\n"); 
       
       usleep(delay);
 
-      y++;
+      // y++;
     }      
   
     close(sockfd); 
