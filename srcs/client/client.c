@@ -14,14 +14,33 @@
 
 // TODO: clear out Makefile -> -I$(INC_SERVER)
 
+/* reverse:  reverse string s in place */
+
+
+void	line_composer(unsigned char *dst, unsigned char *src)
+{
+	size_t		len = strlen( (char *)dst );
+	size_t		copy_start = 0;
+	// size_t		copy_len = 0;
+
+	while (src[copy_start] == 0)
+	// {
+		copy_start++;
+	// }
+
+	printf("copy_start -> %zu\n", copy_start);
+
+	memcpy(&dst[len], &src[copy_start], strlen( (char *)src ));
+}
+
 int main(int argc, char **argv)
 {
-	char			id[ID_SIZE] 		= { 0x0 };
+	unsigned char	id[ID_SIZE] 		= { 0x0 };
 	int				delay 				= 0x0; /* task documentation - specify intervals of input */
 	short			port 				= 0x0; /* task documentation - specify intervals of input */
 	unsigned char	*iterator			= NULL;
 	// unsigned char 	padding				= 0x0;
-	// unsigned char 	initial_packet[256] = { 0x0 }; // later bzero it;
+	unsigned char 	initial_packet[256] = { 0x0 };
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -35,6 +54,24 @@ int main(int argc, char **argv)
 	printf("delay 	 -> %d\n", delay);
 	printf("port  	 -> %d\n", port);
 	printf("iterator -> %c\n", iterator[3]);
+
+	// unsigned char *test1 = (unsigned char *)"test1";
+	// unsigned char *test2 = (unsigned char *)"test2";
+	// unsigned char *test3 = (unsigned char *)"test3";
+
+
+	line_composer(initial_packet, id);
+	// reverse(iterator);
+	line_composer(initial_packet, iterator);
+	// reverse(&initial_packet[8]);
+	// line_composer(initial_packet, test3);
+
+
+
+	printf("initial packet -> %s\n", initial_packet);
+
+	// printf("test -> %c\n", '0');
+
 
     int sockfd; 
     // char buffer[MAXLINE]; 
