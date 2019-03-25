@@ -23,10 +23,10 @@ bool	validation_of_program_arguments(int argc, char **argv)
 	if 		(argc != 4) 									return (false);
 	else if (strlen(argv[1]) > 8) 							return (false);
 	else if (atoi(argv[2]) <= 0 || atoi(&argv[3][3]) <= 0) 	return (false);
-	return (true);
+	else													return 	(true);
 }
 
-void	init_client_socket_configuration(char **argv, char *id, int *delay, short *port)
+void	client_configuration(char **argv, char *id, int *delay, short *port)
 {
 	memcpy(id, argv[1], 8);
 	/* usleep() takes microseconds, 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 		exit (0);
 	}
 
-	init_client_socket_configuration(argv, id, &delay, &port);
+	client_configuration(argv, id, &delay, &port);
 
 	printf("id    -> %s\n", id);
 	printf("delay -> %d\n", delay);
