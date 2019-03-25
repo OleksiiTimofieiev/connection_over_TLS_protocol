@@ -14,8 +14,6 @@
 
 // TODO: clear out Makefile -> -I$(INC_SERVER)
 
-#define PORT     				3333 // delete 
-
 int main(int argc, char **argv)
 {
 	char			id[ID_SIZE] 		= { 0x0 };
@@ -53,7 +51,7 @@ int main(int argc, char **argv)
       
     // Filling server information 
     servaddr.sin_family = AF_INET; 
-    servaddr.sin_port = htons(PORT); 
+    servaddr.sin_port = htons(port); 
     servaddr.sin_addr.s_addr = INADDR_ANY; 
       
     // int n, len; 
