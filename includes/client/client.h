@@ -44,6 +44,7 @@
 #define ID_SIZE 				8
 #define MAX_ITERATOR_SIZE	 	248 /* 256 - 8 */
 #define INITIAL_PACKET_SIZE		256
+#define DIGEST_SIZE				16
 
 bool	validation_of_program_arguments(int argc, char **argv);
 void	client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator);

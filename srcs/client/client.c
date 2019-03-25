@@ -46,6 +46,14 @@ void	aes_key_generation(unsigned char *key) // container for the key ;)
 	    printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
 }
 
+void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet)
+{
+	int ret;
+
+	if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
+        exit(1);
+}
+
 int		main(int argc, char **argv)
 {
 	/* **************************************** signal definition ******************************** */
@@ -76,29 +84,18 @@ int		main(int argc, char **argv)
 
 	/* *************************************** aes key generation ******************************* */
 
-	unsigned char key[32];
+	unsigned char key[32] = { 0 };
 
 	aes_key_generation(key);
 
-	// 	int j = 0;
+	/* *************************************** hash checksum variable *************************** */
 
-	// printf("key -> ");
+	unsigned char digest[DIGEST_SIZE];
 
-	// while (j < 32)
-	// {
-	// 	printf("%d ", key[j++]);
-	// }
 
-	// printf("\n");
+   /* *************************************** packet + checksum ********************************* */
 
-	/* *************************************** hash ******************************* */
-
-	// int i;
-	int ret;
-	unsigned char digest[16];
-
-    if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
-        return( MBEDTLS_EXIT_FAILURE );
+	unsigned char initial_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
 
     // for( i = 0; i < 16; i++ )
     //     mbedtls_printf( "%02x", digest[i] );
@@ -119,7 +116,18 @@ int		main(int argc, char **argv)
     {
  		counter_line_composer(initial_packet, string_iterator);
  		
-     	printf("%s\n", initial_packet);
+		sha1_checksum_generation(digest, initial_packet);
+
+		memcpy(initial_full_packet, initial_packet, 256);
+		memcpy(&initial_full_packet[256], digest, 16);
+
+
+		int i = 0;
+
+		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
+     		printf("%x "
+     			, initial_full_packet[i++]);
+     	printf("\n");
 
      	sendto(sockfd, (const unsigned char *)initial_packet, INITIAL_PACKET_SIZE, 0, (const struct sockaddr *) &servaddr, sizeof(servaddr)); 
  		
@@ -131,7 +139,7 @@ int		main(int argc, char **argv)
 
       	delete++;
 
-      	if (delete == 5)
+      	if (delete == 2)
       		break ;
 
      	// system("leaks -q client_app");
