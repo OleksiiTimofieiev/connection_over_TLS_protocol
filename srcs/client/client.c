@@ -22,8 +22,8 @@
 #define PORT     3333 
 #define MAXLINE 1024
 
-#define ID_SIZE 8
-#define INITIAL_ITERATOR_SIZE 4
+#define ID_SIZE 				8
+#define INITIAL_ITERATOR_SIZE 	4
   
 bool	validation_of_program_arguments(int argc, char **argv)
 {
