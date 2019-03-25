@@ -11,6 +11,7 @@
 #include <netinet/in.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <signal.h>
 
 #define ID_SIZE 				8
 #define MAX_ITERATOR_SIZE	 	248 /* 256 - 8 */

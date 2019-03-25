@@ -11,15 +11,20 @@
  
 // TODO: clear out all comments;
 // TODO: clear out Makefile -> -I$(INC_SERVER)
+int 					sockfd;
+unsigned char			string_iterator[MAX_ITERATOR_SIZE];
+
+void  	sig_handle(int sgnal);
 
 int		main(int argc, char **argv)
 {
+	signal(SIGINT, &sig_handle);
+
 	/* **************************************** configuration variables ***************************/
 
 	int				delay 								= 0; /* task documentation - specify intervals of input */
 	short			port 								= 0; /* task documentation - specify intervals of input */
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
-	unsigned char	string_iterator[MAX_ITERATOR_SIZE];
 
 	/*********************************************** validation **********************************/	
 
@@ -35,7 +40,6 @@ int		main(int argc, char **argv)
 
 	/**************************************** socket initializatiion ****************************/
 	
-    int 					sockfd; 
     struct sockaddr_in 		servaddr; 
   
     if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
@@ -67,10 +71,24 @@ int		main(int argc, char **argv)
 
      	// system("leaks -q client_app");
       	i++;
-      	if (i == 5)
-      		break;
+
     }      
   
     close(sockfd); 
     return 0; 
 } 
+
+void  sig_handle(int signal)
+{
+	if (signal == SIGINT)
+	{
+		close(sockfd);
+
+		size_t i = 0;
+		
+		while (!isdigit(string_iterator[i]))
+			i++;
+		printf("\nPackets have been sent: %s\n", &string_iterator[i]);
+		exit(0);
+	}
+}
