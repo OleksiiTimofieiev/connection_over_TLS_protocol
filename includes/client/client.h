@@ -11,4 +11,10 @@
 #include <netinet/in.h>
 #include <stdbool.h>
 
+#define ID_SIZE 				8
+#define INITIAL_ITERATOR_SIZE 	4
+
+bool	validation_of_program_arguments(int argc, char **argv);
+void	client_configuration(char **argv, char *id, int *delay, short *port, unsigned char **iterator);
+
 #endif
