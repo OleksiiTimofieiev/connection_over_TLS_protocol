@@ -36,17 +36,11 @@ void	client_configuration(char **argv, unsigned char *id, int *delay, short *por
 
 	*delay		 = atoi(argv[2]) * 1000;
 	*port 		 = atoi(&argv[3][3]);
-	// *iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * (INITIAL_ITERATOR_SIZE + 1));
-	
-	// bzero(*iterator, INITIAL_ITERATOR_SIZE + 1);
-	
-	// *iterator[3] = '0';
-	// printf("%s\n", "here");
-	// *iterator[4] = '0';
 
-	memset(iterator, 0, 256);
 
-	// iterator[MAX_ITERATOR_SIZE - 1] = '0';
+	memset(iterator, 0, MAX_ITERATOR_SIZE);
+
+	// iterator[MAX_ITERATOR_SIZE - 1] = '1';
 
 	iterator[MAX_ITERATOR_SIZE] = '0';
 

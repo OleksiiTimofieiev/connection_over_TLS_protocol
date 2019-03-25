@@ -21,16 +21,18 @@ void	line_composer(unsigned char *dst, unsigned char *src)
 {
 	size_t		len = strlen( (char *)dst );
 	size_t		copy_start = 0;
-	// size_t		copy_len = 0;
+	size_t		i = 0;
 
-	while (src[copy_start] == 0)
-	// {
-		copy_start++;
-	// }
+	while (i < MAX_ITERATOR_SIZE)
+	{
+		if (src[i] != 0)
+			break ;
+		i++;
+	}
 
 	printf("copy_start -> %zu\n", copy_start);
 
-	memcpy(&dst[len], &src[copy_start], strlen( (char *)src ));
+	memcpy(&dst[len], &src[i], MAX_ITERATOR_SIZE - copy_start);
 }
 
 int main(int argc, char **argv)
