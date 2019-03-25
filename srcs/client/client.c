@@ -93,25 +93,25 @@ int		main(int argc, char **argv)
 
 	/* *************************************** hash ******************************* */
 
-	int i;
+	// int i;
 	int ret;
 	unsigned char digest[16];
 
     if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
         return( MBEDTLS_EXIT_FAILURE );
 
-    for( i = 0; i < 16; i++ )
-        mbedtls_printf( "%02x", digest[i] );
+    // for( i = 0; i < 16; i++ )
+    //     mbedtls_printf( "%02x", digest[i] );
 
-    printf("\n");
+    // printf("\n");
 
-    if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
-        return( MBEDTLS_EXIT_FAILURE );
+    // if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
+    //     return( MBEDTLS_EXIT_FAILURE );
 
-    for( i = 0; i < 16; i++ )
-        mbedtls_printf( "%02x", digest[i] );
+    // for( i = 0; i < 16; i++ )
+    //     mbedtls_printf( "%02x", digest[i] );
 
-    printf("\n");
+    // printf("\n");
 
 	int delete = 0;
 
