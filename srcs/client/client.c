@@ -18,15 +18,17 @@ void  	sig_handle(int sgnal);
 
 int		main(int argc, char **argv)
 {
+	/* **************************************** signal definition ******************************** */
+
 	signal(SIGINT, &sig_handle);
 
-	/* **************************************** configuration variables ***************************/
+	/* **************************************** configuration variables ************************** */
 
 	int				delay 								= 0; /* task documentation - specify intervals of input */
 	short			port 								= 0; /* task documentation - specify intervals of input */
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
 
-	/*********************************************** validation **********************************/	
+	/* ********************************************** validation ********************************* */	
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -34,11 +36,11 @@ int		main(int argc, char **argv)
 		exit (0);
 	}
 
-	/***************************************** configuration routines ***************************/
+	/* **************************************** configuration routines ************************** */
 
 	client_configuration(argv, initial_packet, &delay, &port, string_iterator);
 
-	/**************************************** socket initializatiion ****************************/
+	/* *************************************** socket initializatiion *************************** */
 	
     struct sockaddr_in 		servaddr; 
   
