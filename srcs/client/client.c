@@ -88,7 +88,9 @@ void  sig_handle(int signal)
 		
 		while (!isdigit(string_iterator[i]))
 			i++;
+
 		printf("\nPackets have been sent: %s\n", &string_iterator[i]);
+		
 		exit(0);
 	}
 }
