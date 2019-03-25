@@ -1,12 +1,12 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdlib.h> 
 #include <unistd.h> 
-#include <string.h> 
-#include <sys/types.h> 
+#include <string.h>
+#include <sys/types.h>
 #include <sys/socket.h> 
-#include <arpa/inet.h> 
+#include <arpa/inet.h>
 #include <netinet/in.h>
-#include <stdbool.h> 
+#include <stdbool.h>
 
 // TODO: delete all comments;
 // TODO: defines to header;
@@ -64,6 +64,8 @@ void	client_configuration(char **argv, char *id, int *delay, short *port, unsign
 	*iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * INITIAL_ITERATOR_SIZE);
 	
 	bzero(*iterator, INITIAL_ITERATOR_SIZE);
+	
+	*iterator[3] = '0';
 }
 
 int main(int argc, char **argv)
@@ -72,8 +74,8 @@ int main(int argc, char **argv)
 	int				delay 				= 0x0; /* task documentation - specify intervals of input */
 	short			port 				= 0x0; /* task documentation - specify intervals of input */
 	unsigned char	*iterator			= NULL;
-	unsigned char 	padding				= 0x0;
-	unsigned char 	initial_packet[256] = { 0x0 }; // later bzero it;
+	// unsigned char 	padding				= 0x0;
+	// unsigned char 	initial_packet[256] = { 0x0 }; // later bzero it;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -86,7 +88,7 @@ int main(int argc, char **argv)
 	printf("id    	 -> %s\n", id);
 	printf("delay 	 -> %d\n", delay);
 	printf("port  	 -> %d\n", port);
-	printf("iterator -> %s\n", iterator);
+	printf("iterator -> %c\n", iterator[3]);
 
     int sockfd; 
     // char buffer[MAXLINE]; 
