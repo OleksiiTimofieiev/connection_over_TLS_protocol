@@ -73,10 +73,10 @@ int main(int argc, char **argv)
 
 	client_configuration(argv, id, &delay, &port, &iterator);
 
-	printf("id    -> %s\n", id);
-	printf("delay -> %d\n", delay);
-	printf("port  -> %d\n", port);
-	printf("iterator  -> %s\n", iterator);
+	printf("id    	 -> %s\n", id);
+	printf("delay 	 -> %d\n", delay);
+	printf("port  	 -> %d\n", port);
+	printf("iterator -> %s\n", iterator);
 
 
 
