@@ -23,6 +23,7 @@
 #define MAXLINE 1024
 
 #define ID_SIZE 8
+#define INITIAL_ITERATOR_SIZE 4
   
 bool	validation_of_program_arguments(int argc, char **argv)
 {
@@ -56,9 +57,8 @@ void	client_configuration(char **argv, char *id, int *delay, short *port, unsign
 	so we have to multiply the input by 1000 in order to sleep in milliseconds. */
 	*delay		 = atoi(argv[2]) * 1000;
 	*port 		 = atoi(&argv[3][3]);
-	*iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * (4 + 1)) /* +1 -> for '\0' */;
-	*iterator[0] = '1';
-	*iterator[5] = '\0';
+	*iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * INITIAL_ITERATOR_SIZE);
+	bzero(*iterator, INITIAL_ITERATOR_SIZE);
 }
 
 int main(int argc, char **argv)
