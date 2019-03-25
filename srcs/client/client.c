@@ -12,7 +12,9 @@
 // TODO: defines to header;
 // TODO: detect connection refused in UDP;
 
-// TODO: initialization module initialization_module.c;
+// TODO: initialization_module.c;
+// TODO: encription_module.c;
+
 
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
@@ -77,8 +79,6 @@ int main(int argc, char **argv)
 	printf("delay 	 -> %d\n", delay);
 	printf("port  	 -> %d\n", port);
 	printf("iterator -> %s\n", iterator);
-
-
 
     int sockfd; 
     // char buffer[MAXLINE]; 
