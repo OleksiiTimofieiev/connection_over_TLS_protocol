@@ -65,6 +65,7 @@ int main(int argc, char **argv)
 	int				delay 		= 0x0; /* task documentation - specify intervals of input */
 	short			port 		= 0x0; /* task documentation - specify intervals of input */
 	unsigned char	*iterator	= NULL;
+	unsigned char 	padding		= 0x0;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
