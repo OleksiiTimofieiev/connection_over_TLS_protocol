@@ -8,27 +8,54 @@
 #include <netinet/in.h>
 #include <stdbool.h> 
 
+// TODO: delete all comments;
+// TODO: defines to header;
+
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
 #define PORT     3333 
-#define MAXLINE 1024 
+#define MAXLINE 1024
+
+#define ID_SIZE 8
   
 bool	validation_of_program_arguments(int argc, char **argv)
 {
 	if (argc != 4 || strlen(argv[1]) > 8)
-	{
-		printf("%s\n", "Invalide command arguments.");
-		printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
 		return (false);
-	}
 	return (true);
 }
 
-// Driver code 
+void	init_client_socket_configuration(char **argv, char *id, int *delay, short *port)
+{
+	memcpy(id, argv[1], 8);
+	/* usleep() takes microseconds, 
+	so we have to multiply the input by 1000 in order to sleep in milliseconds. */
+	*delay = atoi(argv[2]) * 1000;
+	*port = atoi(&argv[3][3]);
+}
+
 int main(int argc, char **argv)
 {
+	char	id[ID_SIZE] = { 0x0 };
+	int		delay; /* task documentation - specofy intervals */
+	short	port; /* task documentation - specofy intervals */
+
+	printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
+
 	if (!(validation_of_program_arguments(argc, argv)))
+	{
+		printf("%s\n", "Invalide command arguments.");
+		printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
 		exit (0);
+	}
+
+	init_client_socket_configuration(argv, id, &delay, &port);
+
+	printf("id    -> %s\n", id);
+	printf("delay -> %d\n", delay);
+	printf("port  -> %d\n", port);
+
+
     int sockfd; 
     // char buffer[MAXLINE]; 
     // char *hello = "Hello from client"; 
@@ -59,7 +86,7 @@ int main(int argc, char **argv)
           0, (const struct sockaddr *) &servaddr,  
               sizeof(servaddr)); 
       // printf("Hello message sent.\n"); 
-      // usleep() takes microseconds, so you will have to multiply the input by 1000 in order to sleep in milliseconds.
+      
       usleep(3000000);
 
       y++;
