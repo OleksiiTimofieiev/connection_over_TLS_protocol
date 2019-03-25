@@ -18,5 +18,7 @@
 
 bool	validation_of_program_arguments(int argc, char **argv);
 void	client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator);
+void	add_to_string(unsigned char *str);
+void	line_composer(unsigned char *dst, unsigned char *src);
 
 #endif
