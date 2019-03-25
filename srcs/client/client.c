@@ -16,7 +16,9 @@
 // TODO: encription_module.c;
 
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
-  
+ 
+// TODO: clear out all comments;
+
 #define PORT     3333 
 #define MAXLINE 1024
 
@@ -61,11 +63,12 @@ void	client_configuration(char **argv, char *id, int *delay, short *port, unsign
 
 int main(int argc, char **argv)
 {
-	char			id[ID_SIZE] = { 0x0 };
-	int				delay 		= 0x0; /* task documentation - specify intervals of input */
-	short			port 		= 0x0; /* task documentation - specify intervals of input */
-	unsigned char	*iterator	= NULL;
-	unsigned char 	padding		= 0x0;
+	char			id[ID_SIZE] 		= { 0x0 };
+	int				delay 				= 0x0; /* task documentation - specify intervals of input */
+	short			port 				= 0x0; /* task documentation - specify intervals of input */
+	unsigned char	*iterator			= NULL;
+	unsigned char 	padding				= 0x0;
+	unsigned char 	initial_packet[256] = { 0x0 }; // later bzero it;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
