@@ -16,6 +16,49 @@
 
 /* reverse:  reverse string s in place */
 
+size_t	str_len(unsigned char *str)
+{
+	size_t 	i = MAX_ITERATOR_SIZE;
+
+	while (i)
+	{
+		if (str[i] == 0)
+			break;
+		i--;
+			
+	}
+	return (i);
+}
+
+void	add_to_string(unsigned char *str)
+{
+	if (str[MAX_ITERATOR_SIZE] <= '8')
+	{
+		str[MAX_ITERATOR_SIZE] += 1;
+		printf("%c\n", str[MAX_ITERATOR_SIZE]);
+	}
+	else
+	{
+		printf("%s\n", "here");
+		size_t 	length_till_end = str_len(str);
+
+		printf("length_till_end -> %zu\n", length_till_end);
+
+		while (length_till_end)
+		{
+			if (str[length_till_end] <= '8')
+			{
+				str[length_till_end] += 1;
+
+				break ;
+			}
+			else
+				str[length_till_end] = '1';
+			length_till_end--;
+		}
+	}
+}
+
 
 void	line_composer(unsigned char *dst, unsigned char *src)
 {
@@ -66,6 +109,24 @@ int main(int argc, char **argv)
 
 	line_composer(initial_packet, id);
 	// reverse(iterator);
+
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+	add_to_string(iterator);
+
+	add_to_string(iterator);
+
+	
+
+
+
+
 	line_composer(initial_packet, iterator);
 	// reverse(&initial_packet[8]);
 	// line_composer(initial_packet, test3);
