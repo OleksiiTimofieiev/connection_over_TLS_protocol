@@ -74,7 +74,7 @@ void	line_composer(unsigned char *dst, unsigned char *src)
 
 int main(int argc, char **argv)
 {
-	unsigned char	id[ID_SIZE] 						= { 0 };
+	// unsigned char	id[ID_SIZE] 						= { 0 };
 	int				delay 								= 0; /* task documentation - specify intervals of input */
 	short			port 								= 0; /* task documentation - specify intervals of input */
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
@@ -86,21 +86,16 @@ int main(int argc, char **argv)
 		exit (0);
 	}
 
-	client_configuration(argv, id, &delay, &port, iterator);
+	client_configuration(argv, initial_packet, &delay, &port, iterator);
 	
 
 	/* remaster */
-	memcpy(initial_packet, id, ID_SIZE);
 
 
 	// printf("id    	 -> %s\n", id);
 	// printf("delay 	 -> %d\n", delay);
 	// printf("port  	 -> %d\n", port);
 	// printf("iterator -> %d\n", iterator[3]);
-
-
-
-	
 
     int sockfd; 
     // char buffer[MAXLINE]; 
