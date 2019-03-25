@@ -12,7 +12,7 @@
  
 // TODO: clear out all comments;
 
-// TODO: clear out Makefile
+// TODO: clear out Makefile -> -I$(INC_SERVER)
 
 #define PORT     				3333 // delete 
 
