@@ -12,7 +12,7 @@
 // TODO: defines to header;
 // TODO: detect connection refused in UDP;
 
-// TODO: initialization module;
+// TODO: initialization module initialization_module.c;
 
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
@@ -61,9 +61,9 @@ void	client_configuration(char **argv, char *id, int *delay, short *port, unsign
 int main(int argc, char **argv)
 {
 	char			id[ID_SIZE] = { 0x0 };
-	int				delay = 0x0; /* task documentation - specify intervals of input */
-	short			port = 0x0; /* task documentation - specify intervals of input */
-	unsigned char	*iterator = NULL;
+	int				delay 		= 0x0; /* task documentation - specify intervals of input */
+	short			port 		= 0x0; /* task documentation - specify intervals of input */
+	unsigned char	*iterator	= NULL;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
