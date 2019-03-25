@@ -53,7 +53,6 @@ int		main(int argc, char **argv)
     servaddr.sin_port = htons(port); 
     servaddr.sin_addr.s_addr = INADDR_ANY; 
       
-    int i = 0;
 
     while (42)
     {
@@ -70,12 +69,11 @@ int		main(int argc, char **argv)
       	usleep( delay / 1000);
 
      	// system("leaks -q client_app");
-      	i++;
-
     }      
   
     close(sockfd); 
-    return 0; 
+
+    return (0); 
 } 
 
 void  sig_handle(int signal)
