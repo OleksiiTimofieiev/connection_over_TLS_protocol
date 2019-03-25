@@ -35,6 +35,11 @@
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 
+/* hash function headers */
+#if defined(MBEDTLS_SHA1_C)
+#include "mbedtls/sha1.h"
+#endif
+
 
 #define ID_SIZE 				8
 #define MAX_ITERATOR_SIZE	 	248 /* 256 - 8 */

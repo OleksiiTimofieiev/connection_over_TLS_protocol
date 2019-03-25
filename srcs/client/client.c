@@ -25,17 +25,11 @@ void	init_socket(short port);
 
 void	aes_key_generation(unsigned char *key) // container for the key ;)
 {
-	/* key generation section */
-	/* ----------------------------------------------------------------------------- */
-
 	mbedtls_ctr_drbg_context 	ctr_drbg;
 
 	mbedtls_entropy_context 	entropy;
 
-	
-
 	memset(key, 0, 32);
-
 
 	char *pers = "and here comes some line for key generation"; // random line for the key generation ;
 	
@@ -46,20 +40,10 @@ void	aes_key_generation(unsigned char *key) // container for the key ;)
 	mbedtls_ctr_drbg_init( &ctr_drbg );
 
 	if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy, (unsigned char *) pers, strlen( pers ) ) ) != 0 )
-	{
 	    printf( " failed\n ! mbedtls_ctr_drbg_init returned -0x%04x\n", -ret );
-	    
-	    // goto exit;
-	}
 
 	if( ( ret = mbedtls_ctr_drbg_random( &ctr_drbg, key, 32 ) ) != 0 )
-	{
 	    printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
-	    
-	    // goto exit;
-	}
-
-
 }
 
 int		main(int argc, char **argv)
@@ -96,17 +80,38 @@ int		main(int argc, char **argv)
 
 	aes_key_generation(key);
 
-		int j = 0;
+	// 	int j = 0;
 
-	printf("key -> ");
+	// printf("key -> ");
 
-	while (j < 32)
-	{
-		printf("%d ", key[j++]);
-	}
+	// while (j < 32)
+	// {
+	// 	printf("%d ", key[j++]);
+	// }
 
-	printf("\n");
+	// printf("\n");
 
+	/* *************************************** hash ******************************* */
+
+	int i;
+	int ret;
+	unsigned char digest[16];
+
+    if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
+        return( MBEDTLS_EXIT_FAILURE );
+
+    for( i = 0; i < 16; i++ )
+        mbedtls_printf( "%02x", digest[i] );
+
+    printf("\n");
+
+    if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
+        return( MBEDTLS_EXIT_FAILURE );
+
+    for( i = 0; i < 16; i++ )
+        mbedtls_printf( "%02x", digest[i] );
+
+    printf("\n");
 
 	int delete = 0;
 
