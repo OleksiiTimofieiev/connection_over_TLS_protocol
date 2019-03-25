@@ -12,10 +12,13 @@
 // TODO: clear out all comments;
 // TODO: clear out Makefile -> -I$(INC_SERVER)
 
-int 					sockfd; /* declared it global for the sig_handle function */
+/* declared it global for the sig_handle function */
+int 					sockfd; 
+
 struct sockaddr_in 		servaddr;
 
-unsigned char			string_iterator[MAX_ITERATOR_SIZE]; /* declared it global for the sig_handle function */
+/* declared it global for the sig_handle function */
+unsigned char			string_iterator[MAX_ITERATOR_SIZE];
 
 void  	sig_handle(int sgnal);
 void	init_socket(short port);
