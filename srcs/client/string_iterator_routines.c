@@ -39,10 +39,8 @@ void	add_to_string(unsigned char *str)
 	}
 }
 
-
-void	line_composer(unsigned char *dst, unsigned char *src)
+void	counter_line_composer(unsigned char *dst, unsigned char *src)
 {
-	// size_t		len = strlen( (char *)dst );
 	size_t		copy_start = 0;
 	size_t		i = 0;
 

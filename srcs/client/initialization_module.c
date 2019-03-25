@@ -29,7 +29,6 @@ void	client_configuration(char **argv, unsigned char *initial_packet, int *delay
 {
 	memcpy(initial_packet, argv[1], 8);
 
-
 	/* 
 	** usleep() takes microseconds, 
 	** so we have to multiply the input by 1000 in order to sleep in milliseconds. 
