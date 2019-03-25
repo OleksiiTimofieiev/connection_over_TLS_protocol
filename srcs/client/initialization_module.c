@@ -25,7 +25,7 @@ bool	validation_of_program_arguments(int argc, char **argv)
 	return 	(true);
 }
 
-void	client_configuration(char **argv, unsigned char *id, int *delay, short *port, unsigned char **iterator)
+void	client_configuration(char **argv, unsigned char *id, int *delay, short *port, unsigned char *iterator)
 {
 	memcpy(id, argv[1], 8);
 
@@ -36,9 +36,18 @@ void	client_configuration(char **argv, unsigned char *id, int *delay, short *por
 
 	*delay		 = atoi(argv[2]) * 1000;
 	*port 		 = atoi(&argv[3][3]);
-	*iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * INITIAL_ITERATOR_SIZE);
+	// *iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * (INITIAL_ITERATOR_SIZE + 1));
 	
-	bzero(*iterator, INITIAL_ITERATOR_SIZE);
+	// bzero(*iterator, INITIAL_ITERATOR_SIZE + 1);
 	
-	*iterator[3] = '0';
+	// *iterator[3] = '0';
+	// printf("%s\n", "here");
+	// *iterator[4] = '0';
+
+	memset(iterator, 0, 256);
+
+	// iterator[MAX_ITERATOR_SIZE - 1] = '0';
+
+	iterator[MAX_ITERATOR_SIZE] = '0';
+
 }
