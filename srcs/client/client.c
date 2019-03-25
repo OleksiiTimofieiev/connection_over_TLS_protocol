@@ -58,6 +58,7 @@ void	client_configuration(char **argv, char *id, int *delay, short *port, unsign
 	*delay		 = atoi(argv[2]) * 1000;
 	*port 		 = atoi(&argv[3][3]);
 	*iterator	 = (unsigned char *)malloc(sizeof(unsigned char) * INITIAL_ITERATOR_SIZE);
+	
 	bzero(*iterator, INITIAL_ITERATOR_SIZE);
 }
 
