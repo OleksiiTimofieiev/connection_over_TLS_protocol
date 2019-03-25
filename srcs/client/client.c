@@ -20,8 +20,9 @@
   
 bool	validation_of_program_arguments(int argc, char **argv)
 {
-	if (argc != 4 || strlen(argv[1]) > 8)
-		return (false);
+	if 		(argc != 4) 									return (false);
+	else if (strlen(argv[1]) > 8) 							return (false);
+	else if (atoi(argv[2]) <= 0 || atoi(&argv[3][3]) <= 0) 	return (false);
 	return (true);
 }
 
@@ -37,10 +38,8 @@ void	init_client_socket_configuration(char **argv, char *id, int *delay, short *
 int main(int argc, char **argv)
 {
 	char	id[ID_SIZE] = { 0x0 };
-	int		delay; /* task documentation - specofy intervals */
-	short	port; /* task documentation - specofy intervals */
-
-	printf("%s\n", "usage: <id[0:8]> <delay[ms]> <ip:port>");
+	int		delay = 0; /* task documentation - specofy intervals */
+	short	port = 0; /* task documentation - specofy intervals */
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -87,7 +86,7 @@ int main(int argc, char **argv)
               sizeof(servaddr)); 
       // printf("Hello message sent.\n"); 
       
-      usleep(3000000);
+      usleep(delay);
 
       y++;
     }      
