@@ -46,23 +46,24 @@ bool	validation_of_program_arguments(int argc, char **argv)
 	return 	(true);
 }
 
-void	client_configuration(char **argv, char *id, int *delay, short *port, char **iterator)
+void	client_configuration(char **argv, char *id, int *delay, short *port, unsigned char **iterator)
 {
 	memcpy(id, argv[1], 8);
 	/* usleep() takes microseconds, 
 	so we have to multiply the input by 1000 in order to sleep in milliseconds. */
 	*delay = atoi(argv[2]) * 1000;
 	*port = atoi(&argv[3][3]);
-	*iterator = (char *)malloc(sizeof(char) * (4 + 1)) /* +1 -> for '\0' */;
+	*iterator = (unsigned char *)malloc(sizeof(unsigned char) * (4 + 1)) /* +1 -> for '\0' */;
 	*iterator[0] = '1';
+	*iterator[5] = '\0';
 }
 
 int main(int argc, char **argv)
 {
-	char	id[ID_SIZE] = { 0x0 };
-	int		delay = 0x0; /* task documentation - specify intervals of input */
-	short	port = 0x0; /* task documentation - specify intervals of input */
-	char	*iterator = NULL;
+	char			id[ID_SIZE] = { 0x0 };
+	int				delay = 0x0; /* task documentation - specify intervals of input */
+	short			port = 0x0; /* task documentation - specify intervals of input */
+	unsigned char	*iterator = NULL;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
