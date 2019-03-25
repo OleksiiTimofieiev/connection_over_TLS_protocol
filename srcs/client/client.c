@@ -117,6 +117,7 @@ int main(int argc, char **argv)
       usleep(delay);
 
       // y++;
+      system("leaks -q client_app");
     }      
   
     close(sockfd); 
