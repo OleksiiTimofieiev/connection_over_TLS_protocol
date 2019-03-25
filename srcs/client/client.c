@@ -38,8 +38,8 @@ void	client_configuration(char **argv, char *id, int *delay, short *port)
 int main(int argc, char **argv)
 {
 	char	id[ID_SIZE] = { 0x0 };
-	int		delay = 0; /* task documentation - specofy intervals */
-	short	port = 0; /* task documentation - specofy intervals */
+	int		delay = 0; /* task documentation - specify intervals of input */
+	short	port = 0; /* task documentation - specify intervals of input */
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
