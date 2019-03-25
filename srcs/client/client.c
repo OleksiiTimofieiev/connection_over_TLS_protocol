@@ -11,6 +11,7 @@
 // TODO: delete all comments;
 // TODO: defines to header;
 // TODO: detect connection refused in UDP;
+// TODO: handle overflow on port and delay;
 
 // TODO: initialization_module.c;
 // TODO: encription_module.c;
@@ -19,8 +20,7 @@
  
 // TODO: clear out all comments;
 
-#define PORT     3333 
-#define MAXLINE 1024
+#define PORT     				3333 // delete 
 
 #define ID_SIZE 				8
 #define INITIAL_ITERATOR_SIZE 	4
