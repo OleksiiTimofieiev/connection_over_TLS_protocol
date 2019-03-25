@@ -46,13 +46,15 @@ bool	validation_of_program_arguments(int argc, char **argv)
 	return 	(true);
 }
 
-void	client_configuration(char **argv, char *id, int *delay, short *port)
+void	client_configuration(char **argv, char *id, int *delay, short *port, char **iterator)
 {
 	memcpy(id, argv[1], 8);
 	/* usleep() takes microseconds, 
 	so we have to multiply the input by 1000 in order to sleep in milliseconds. */
 	*delay = atoi(argv[2]) * 1000;
 	*port = atoi(&argv[3][3]);
+	*iterator = (char *)malloc(sizeof(char) * (4 + 1)) /* +1 -> for '\0' */;
+	*iterator[0] = '1';
 }
 
 int main(int argc, char **argv)
@@ -60,6 +62,7 @@ int main(int argc, char **argv)
 	char	id[ID_SIZE] = { 0x0 };
 	int		delay = 0x0; /* task documentation - specify intervals of input */
 	short	port = 0x0; /* task documentation - specify intervals of input */
+	char	*iterator = NULL;
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -67,11 +70,13 @@ int main(int argc, char **argv)
 		exit (0);
 	}
 
-	client_configuration(argv, id, &delay, &port);
+	client_configuration(argv, id, &delay, &port, &iterator);
 
 	printf("id    -> %s\n", id);
 	printf("delay -> %d\n", delay);
 	printf("port  -> %d\n", port);
+	printf("iterator  -> %s\n", iterator);
+
 
 
     int sockfd; 
