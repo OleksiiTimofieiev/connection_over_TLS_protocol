@@ -1,6 +1,6 @@
 #include "../../includes/client/client.h"
 
-size_t	str_len(unsigned char *str)
+static size_t	str_len(unsigned char *str)
 {
 	size_t 	i = MAX_ITERATOR_SIZE;
 
