@@ -17,6 +17,9 @@ OBJECTS_SERVER 	= $(SRCS_SERVER:.c=.o)
 INC_SERVER		= /Users/otimofie/.brew/Cellar/libev/4.24/include/
 LIBEV_PATH		= /Users/otimofie/.brew/Cellar/libev/4.24/lib/
 
+MBEDTLS_INCLUDE	= /Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
+MBEDTLS_PATH	= /Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
+
 #colors
 RESET			= \033[m
 GREEN       	= \033[01;38;05;46m
@@ -27,11 +30,11 @@ all: $(CLIENT) $(SERVER)
 $(CLIENT): $(OBJECTS_CLIENT)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
 # gcc aes_experiments.c -lmbedtls -lmbedcrypto
-	@ gcc    $(CFLAGS) $(SRCS_CLIENT) -o $(CLIENT)
+	@ gcc    $(CFLAGS) -I$(MBEDTLS_INCLUDE) $(SRCS_CLIENT) -L$(MBEDTLS_PATH) -lmbedtls -lmbedx509 -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
-	@ gcc -c $(CFLAGS) $< -o $@
+	@ gcc -c $(CFLAGS) -I$(MBEDTLS_INCLUDE) $< -o $@
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)

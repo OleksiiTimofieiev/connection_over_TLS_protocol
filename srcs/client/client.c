@@ -35,7 +35,7 @@ int		main(int argc, char **argv)
 	short			port 								= 0; /* task documentation - specify intervals of input */
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
 
-	/* ********************************************** validation ********************************* */	
+	/* **************************************** validation *************************************** */	
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
@@ -50,6 +50,10 @@ int		main(int argc, char **argv)
 	/* *************************************** socket initializatiion *************************** */
 	
 	init_socket(port);
+
+	/* *************************************** aes key generation ******************************* */
+
+	
 
     while (42)
     {
