@@ -11,6 +11,8 @@
 // TODO: delete all comments;
 // TODO: defines to header;
 
+// TODO: initialization module;
+
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
   
 #define PORT     3333 
@@ -55,8 +57,8 @@ void	client_configuration(char **argv, char *id, int *delay, short *port)
 int main(int argc, char **argv)
 {
 	char	id[ID_SIZE] = { 0x0 };
-	int		delay = 0; /* task documentation - specify intervals of input */
-	short	port = 0; /* task documentation - specify intervals of input */
+	int		delay = 0x0; /* task documentation - specify intervals of input */
+	short	port = 0x0; /* task documentation - specify intervals of input */
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
