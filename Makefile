@@ -3,7 +3,8 @@ SERVER			= server_app
 
 CLIENT_CODE		= 	client.c \
 					initialization_module.c \
-					string_iterator_routines.c 
+					string_iterator_routines.c \
+					encryption_module.c 
 SERVER_CODE		= server.c 
 			
 SRCS_CLIENT     = $(addprefix ./srcs/client/, $(CLIENT_CODE))

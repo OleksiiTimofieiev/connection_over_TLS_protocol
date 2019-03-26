@@ -23,59 +23,6 @@ unsigned char			string_iterator[MAX_ITERATOR_SIZE];
 void  	sig_handle(int sgnal);
 void	init_socket(short port);
 
-void	aes_key_generation(unsigned char *key) // container for the key ;)
-{
-	mbedtls_ctr_drbg_context 	ctr_drbg;
-
-	mbedtls_entropy_context 	entropy;
-
-	memset(key, 0, 32);
-
-	char *pers = "and here comes some line for key generation"; // random line for the key generation ;
-	
-	int ret;
-
-	mbedtls_entropy_init( &entropy );
-
-	mbedtls_ctr_drbg_init( &ctr_drbg );
-
-	if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy, (unsigned char *) pers, strlen( pers ) ) ) != 0 )
-	    printf( " failed\n ! mbedtls_ctr_drbg_init returned -0x%04x\n", -ret );
-
-	if( ( ret = mbedtls_ctr_drbg_random( &ctr_drbg, key, 32 ) ) != 0 )
-	    printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
-}
-
-void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet)
-{
-	int ret;
-
-	if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
-        exit(1);
-}
-
-void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet)
-{
-	int 				ret;
-	mbedtls_aes_context aes;
-
-	mbedtls_aes_init(&aes);
-
-	ret = mbedtls_aes_setkey_enc( &aes, key, 256 );
-
-	// if (ret == 0)
-	// 	printf("%s\n", "successs on init of the key");
-	// else
-	// 	printf("%s\n", "wtf ?");
-
-	ret = mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, initial_full_packet, encrypted_full_packet );
-
-	// if (ret == 0)
-	// 	printf("%s\n", "successs on encription");
-	// else
-	// 	printf("%s\n", "wtf ?");
-}
-
 void	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output)
 {
 	int 				ret;
@@ -150,7 +97,6 @@ int		main(int argc, char **argv)
 	
 	unsigned char iv[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
 
-
 	unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
 
     // for( i = 0; i < 16; i++ )
@@ -186,7 +132,6 @@ int		main(int argc, char **argv)
 
 
 
-
 		int i = 0;
 
 		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
@@ -202,7 +147,6 @@ int		main(int argc, char **argv)
 		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
      		printf("%x ", decrypted_full_packet[i++]);
      	printf("\n");
-
 
 
 
