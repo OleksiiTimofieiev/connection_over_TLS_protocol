@@ -120,9 +120,11 @@ int		main(int argc, char **argv)
 
     // printf("\n");
 
-    rsa_encrypt(key);
+    unsigned char result[256];
 
-    rsa_decrypt();
+    rsa_encrypt(key, result);
+
+    rsa_decrypt(result);
 
 	int delete = 0;
 

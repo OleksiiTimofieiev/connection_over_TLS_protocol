@@ -1,11 +1,11 @@
 #include "../../includes/client/client.h"
 
-void	rsa_decrypt(void)
+void	rsa_decrypt(unsigned char *resulto)
 {
 	FILE *f;
     int ret = 1;
     // int exit_code = MBEDTLS_EXIT_FAILURE;
-    int c;
+    // int c;
     size_t i;
     mbedtls_rsa_context rsa;
     mbedtls_mpi N, P, Q, D, E, DP, DQ, QP;
@@ -18,7 +18,7 @@ void	rsa_decrypt(void)
     memset(result, 0, sizeof( result ) );
 
  
-    mbedtls_printf( "\n  . Seeding the random number generator..." );
+    // mbedtls_printf( "\n  . Seeding the random number generator..." );
     fflush( stdout );
 
     mbedtls_rsa_init( &rsa, MBEDTLS_RSA_PKCS_V15, 0 );
@@ -43,7 +43,7 @@ void	rsa_decrypt(void)
         // goto exit;
     }
 
-    mbedtls_printf( "\n  . Reading private key from ./rsa/keys/rsa_priv.txt" );
+    // mbedtls_printf( "\n  . Reading private key from ./rsa/keys/rsa_priv.txt" );
 
     fflush( stdout );
 
@@ -87,19 +87,22 @@ void	rsa_decrypt(void)
     /*
      * Extract the RSA encrypted value from the text file
      */
-    if( ( f = fopen( "result-enc.txt", "rb" ) ) == NULL )
-    {
-        mbedtls_printf( "\n  ! Could not open %s\n\n", "result-enc.txt" );
-        // goto exit;
-    }
+
+    // if( ( f = fopen( "result-enc.txt", "rb" ) ) == NULL )
+    // {
+    //     mbedtls_printf( "\n  ! Could not open %s\n\n", "result-enc.txt" );
+    //     // goto exit;
+    // }
 
     i = 0;
 
-    while( fscanf( f, "%02X", &c ) > 0 &&
-           i < (int) sizeof( buf ) )
-        buf[i++] = (unsigned char) c;
+    while( i < 256 )
+    {
+        buf[i] = resulto[i];
+        i++;
+    }
 
-    fclose( f );
+    // fclose( f );
 
     if( i != rsa.len )
     {
@@ -110,7 +113,9 @@ void	rsa_decrypt(void)
     /*
      * Decrypt the encrypted RSA data and print the result.
      */
-    mbedtls_printf( "\n  . Decrypting the encrypted data" );
+
+    // mbedtls_printf( "\n  . Decrypting the encrypted data" );
+
     fflush( stdout );
 
     ret = mbedtls_rsa_pkcs1_decrypt( &rsa, mbedtls_ctr_drbg_random,
@@ -123,9 +128,9 @@ void	rsa_decrypt(void)
         // goto exit;/
     }
 
-    mbedtls_printf( "\n  . OK\n\n" );
-
-    mbedtls_printf( "The decrypted result is: '%s'\n\n", result );
+    // mbedtls_printf( "\n  . OK\n\n" );
+// 
+    // mbedtls_printf( "The decrypted result is: '%s'\n\n", result );
 
     	int j = 0;
 
@@ -133,7 +138,7 @@ void	rsa_decrypt(void)
 	{
 		printf("%x ", result[j++]);
 	}
-     	printf("\n");
+    printf("\n");
 
     // exit_code = MBEDTLS_EXIT_SUCCESS;
 
