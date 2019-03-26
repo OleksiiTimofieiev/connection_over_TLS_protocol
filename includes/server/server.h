@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 // #include <ev.h>
-#include "ev.h"
+
 
 #include <errno.h>
 #include <sys/socket.h>
@@ -50,12 +50,9 @@
 #define DIGEST_SIZE                 16
 #define LEN_OF_ENCPYPTED_AES_KEY    256
 
-// void rsa_decrypt(unsigned char *input, unsigned char *output);
-
-
 typedef struct 		s_data
 {
-	unsigned char 	data[INITIAL_PACKET_SIZE];
+	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE];
 	struct s_data 	*next;
 }					t_data;
 

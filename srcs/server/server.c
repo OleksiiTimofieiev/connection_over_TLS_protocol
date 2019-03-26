@@ -76,16 +76,35 @@ int main()
 	return 0;
 }
 
-void sig_handle(int signal)
+void	sig_handle(int signal)
 {
 	if (signal == SIGINT)
 	{
-		while(data)
+		close(sockfd);
+
+		FILE *fptr = NULL;
+
+		fptr = fopen("UDP_INPUT.txt", "wb");
+
+		if (fptr == NULL)
 		{
-			printf("%s\n", data->data);
+			printf("Error!");
+			exit(1);
+		}
+
+		int i = 0 ;
+
+		while (data)
+		{
+			i = 0;
+			while (i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
+				fprintf(fptr, "%.2x", data->data[i++]);
+			fprintf(fptr, "%s", "\n");
 			data = data->next;
 		}
-		close(sockfd);
+		
+		fclose(fptr);
+
 		exit(0);
 	}
 }

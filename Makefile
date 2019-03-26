@@ -7,8 +7,6 @@ CLIENT_CODE		= 	client.c \
 					aes_encryption_module.c \
 					rsa_encryption.c \
 					
-
-
 SERVER_CODE		= 	server.c \
 					rsa_decryption.c \
 					aes_decryption.c \
@@ -23,8 +21,6 @@ CFLAGS			= 	-Wall -Wextra -Werror
 OBJECTS_CLIENT 	= 	$(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= 	$(SRCS_SERVER:.c=.o)
 
-INC_SERVER		= 	/Users/otimofie/.brew/Cellar/libev/4.24/include/
-LIBEV_PATH		= 	/Users/otimofie/.brew/Cellar/libev/4.24/lib/
 
 MBEDTLS_INCLUDE	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
 MBEDTLS_PATH	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
@@ -37,8 +33,6 @@ YELLOW      	= 	\033[01;38;05;226m
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
-# 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-# gcc aes_experiments.c -lmbedtls -lmbedcrypto
 	@ gcc    $(CFLAGS) -I$(MBEDTLS_INCLUDE) $(SRCS_CLIENT) -L$(MBEDTLS_PATH) -lmbedtls -lmbedx509 -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
@@ -47,11 +41,11 @@ $(OBJECTS_CLIENT): %.o: %.c
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-	@ gcc    $(CFLAGS) -I$(INC_SERVER) -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER) -L$(LIBEV_PATH) -L$(MBEDTLS_PATH) -lev -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
+	@ gcc    $(CFLAGS)  -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER)  -L$(MBEDTLS_PATH)  -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
-	@ gcc -c $(CFLAGS) -I$(INC_SERVER) -I$(MBEDTLS_INCLUDE) $< -o $@
+	@ gcc -c $(CFLAGS)  -I$(MBEDTLS_INCLUDE) $< -o $@
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)

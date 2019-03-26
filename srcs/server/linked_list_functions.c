@@ -7,7 +7,7 @@ void	push_front(t_data **head_ref, unsigned char *new_data)
 	t_data *new_node = (t_data *)malloc(sizeof(t_data));
 
 	/* 2. put in the data  */
-	memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE);
+	memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE + DIGEST_SIZE);
 
 	/* 3. Make next of new node as head */
 	new_node->next = (*head_ref);
