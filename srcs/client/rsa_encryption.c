@@ -1,6 +1,6 @@
 #include "../../includes/client/client.h"
 
-void	rsa_encrypt(unsigned char *key, unsigned char *result)
+void	rsa_encrypt(unsigned char *key, unsigned char *output)
 {
  	FILE *f;
     int ret = 1;
@@ -104,8 +104,8 @@ void	rsa_encrypt(unsigned char *key, unsigned char *result)
         // goto exit;
     }
 
-    for( i = 0; i < rsa.len; i++ )
-    	result[i] = buf[i];
+    // for( i = 0; i < rsa.len; i++ )
+    // 	result[i] = buf[i];
 
     // for( i = 0; i < rsa.len; i++ )
     // {
@@ -127,9 +127,8 @@ void	rsa_encrypt(unsigned char *key, unsigned char *result)
     //     // goto exit;
     // }
 
-    // for( i = 0; i < rsa.len; i++ )
-    //     mbedtls_fprintf( f, "%02X%s", buf[i],
-    //              ( i + 1 ) % 16 == 0 ? "\r\n" : " " );
+    for( i = 0; i < rsa.len; i++ )
+        output[i] = buf[i];
 
     // fclose( f );
 

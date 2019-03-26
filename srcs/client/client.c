@@ -82,13 +82,13 @@ int		main(int argc, char **argv)
 	aes_key_generation(key);
 
 	// print key
-	// int i = 0;
+	int i = 0;
 
-	// while (i < 32)
-	// {
-	// 	printf("%x ", key[i++]);
-	// }
- //     	printf("\n");
+	while (i < 32)
+	{
+		printf("%x ", key[i++]);
+	}
+    printf("\n");
 
 	/* *************************************** hash checksum variable *************************** */
 
@@ -112,6 +112,8 @@ int		main(int argc, char **argv)
 
 	// unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
 
+	unsigned char encrypted_key_with_rsa[256];
+
     // for( i = 0; i < 16; i++ )
     //     mbedtls_printf( "%02x", digest[i] );
 
@@ -124,12 +126,21 @@ int		main(int argc, char **argv)
     //     mbedtls_printf( "%02x", digest[i] );
 
     // printf("\n");
+	unsigned char decrypted_key_with_rsa[32];
 
-    unsigned char encrypted_aes_key_with_rsa[256];
+    rsa_encrypt(key, encrypted_key_with_rsa);
 
-    rsa_encrypt(key, encrypted_aes_key_with_rsa);
+    rsa_decrypt(encrypted_key_with_rsa, decrypted_key_with_rsa);
 
-    // rsa_decrypt(encrypted_aes_key_with_rsa);
+    int j = 0;
+
+	while (j < 32)
+	{
+		printf("%x ", decrypted_key_with_rsa[j]);;
+        j++;
+	}
+    printf("\n");
+
 
 	int delete = 0;
 
@@ -157,7 +168,7 @@ int		main(int argc, char **argv)
 
 		// memcpy(iv, iv_buf, 16);
 		memcpy(encrypted_full_packet_with_rsa_key, encrypted_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
-		memcpy(&encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE], encrypted_aes_key_with_rsa, 256);
+		// memcpy(&encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE], encrypted_aes_key_with_rsa, 256);
 
 		// aes_decrypt(iv, key, encrypted_full_packet, decrypted_full_packet);
 

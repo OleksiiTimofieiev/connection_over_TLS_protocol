@@ -61,9 +61,9 @@ void	counter_line_composer(unsigned char *dst, unsigned char *src);
 void	aes_key_generation(unsigned char *key);
 void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet);
 void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
-void	rsa_encrypt(unsigned char *key, unsigned char *result);
+void	rsa_encrypt(unsigned char *intput, unsigned char *output);
 
-void	rsa_decrypt(unsigned char *result);
+void	rsa_decrypt(unsigned char *input, unsigned char *output);
 
 
 
