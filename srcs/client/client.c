@@ -105,7 +105,6 @@ int		main(int argc, char **argv)
 	unsigned char encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY] = { 0 };
 
 
-
 	const unsigned char iv_buf[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
 	
 	unsigned char iv[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
@@ -126,20 +125,20 @@ int		main(int argc, char **argv)
     //     mbedtls_printf( "%02x", digest[i] );
 
     // printf("\n");
-	unsigned char decrypted_key_with_rsa[32];
+	// unsigned char decrypted_key_with_rsa[32];
 
     rsa_encrypt(key, encrypted_key_with_rsa);
 
-    rsa_decrypt(encrypted_key_with_rsa, decrypted_key_with_rsa);
+    // rsa_decrypt(encrypted_key_with_rsa, decrypted_key_with_rsa);
 
-    int j = 0;
+    // int j = 0;
 
-	while (j < 32)
-	{
-		printf("%x ", decrypted_key_with_rsa[j]);;
-        j++;
-	}
-    printf("\n");
+	// while (j < 32)
+	// {
+	// 	printf("%x ", decrypted_key_with_rsa[j]);;
+    //     j++;
+	// }
+    // printf("\n");
 
 
 	int delete = 0;
@@ -167,9 +166,13 @@ int		main(int argc, char **argv)
   //    	printf("\n");
 
 		// memcpy(iv, iv_buf, 16);
-		memcpy(encrypted_full_packet_with_rsa_key, encrypted_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
-		// memcpy(&encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE], encrypted_aes_key_with_rsa, 256);
 
+
+		memcpy(encrypted_full_packet_with_rsa_key, encrypted_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
+		memcpy(&encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE], encrypted_key_with_rsa, LEN_OF_ENCPYPTED_AES_KEY);
+
+		for (int i = 0; i < INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY; i++)
+			printf("%x ", encrypted_full_packet_with_rsa_key[i]);
 		// aes_decrypt(iv, key, encrypted_full_packet, decrypted_full_packet);
 
 		// i = 0;
@@ -178,9 +181,9 @@ int		main(int argc, char **argv)
   //    		printf("%x ", decrypted_full_packet[i++]);
   //    	printf("\n");
 
-     	sendto(sockfd, (const unsigned char *)encrypted_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY, 0, (const struct sockaddr *) &servaddr, sizeof(servaddr)); 
- 		
- 		add_to_string(string_iterator);
+		sendto(sockfd, (const unsigned char *)encrypted_full_packet_with_rsa_key, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY, 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+
+		add_to_string(string_iterator);
  		
  		counter_line_composer(initial_packet, string_iterator);
 
@@ -188,7 +191,7 @@ int		main(int argc, char **argv)
 
       	delete++;
 
-      	if (delete == 2)
+      	if (delete == 1)
       		break ;
 
      	// system("leaks -q client_app");

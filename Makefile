@@ -6,10 +6,11 @@ CLIENT_CODE		= 	client.c \
 					string_iterator_routines.c \
 					aes_encryption_module.c \
 					rsa_encryption.c \
+					
+
+
+SERVER_CODE		= 	server.c \
 					rsa_decryption.c \
-
-
-SERVER_CODE		= 	server.c 
 			
 SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))
@@ -43,11 +44,11 @@ $(OBJECTS_CLIENT): %.o: %.c
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-	@ gcc    $(CFLAGS) -I$(INC_SERVER) $(SRCS_SERVER) -L$(LIBEV_PATH) -lev -o $(SERVER)
+	@ gcc    $(CFLAGS) -I$(INC_SERVER) -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER) -L$(LIBEV_PATH) -L$(MBEDTLS_PATH) -lev -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
-	@ gcc -c $(CFLAGS) -I$(INC_SERVER) $< -o $@
+	@ gcc -c $(CFLAGS) -I$(INC_SERVER) -I$(MBEDTLS_INCLUDE) $< -o $@
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)
