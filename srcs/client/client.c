@@ -80,6 +80,14 @@ int		main(int argc, char **argv)
 
 	aes_key_generation(key);
 
+	int i = 0;
+
+	while (i < 32)
+	{
+		printf("%x ", key[i++]);
+	}
+     	printf("\n");
+
 	/* *************************************** hash checksum variable *************************** */
 
 	unsigned char digest[DIGEST_SIZE];
@@ -112,6 +120,10 @@ int		main(int argc, char **argv)
 
     // printf("\n");
 
+    rsa_encrypt(key);
+
+    rsa_decrypt();
+
 	int delete = 0;
 
     while (42)
@@ -132,21 +144,21 @@ int		main(int argc, char **argv)
 
 
 
-		int i = 0;
+		// int i = 0;
 
-		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
-     		printf("%x ", initial_full_packet[i++]);
-     	printf("\n");
+		// while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
+  //    		printf("%x ", initial_full_packet[i++]);
+  //    	printf("\n");
 
 		memcpy(iv, iv_buf, 16);
 
 		aes_decrypt(iv, key, encrypted_full_packet, decrypted_full_packet);
 
-		i = 0;
+		// i = 0;
 
-		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
-     		printf("%x ", decrypted_full_packet[i++]);
-     	printf("\n");
+		// while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
+  //    		printf("%x ", decrypted_full_packet[i++]);
+  //    	printf("\n");
 
 
 
