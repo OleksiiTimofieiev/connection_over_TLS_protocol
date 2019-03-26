@@ -52,5 +52,6 @@
 // void rsa_decrypt(unsigned char *input, unsigned char *output);
 
 void 	rsa_decrypt(unsigned char *input, unsigned char *output);
+void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
 
 #endif
