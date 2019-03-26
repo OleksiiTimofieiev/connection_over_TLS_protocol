@@ -102,84 +102,9 @@ void	sig_handle(int signal)
 			fprintf(fptr, "%s", "\n");
 			data = data->next;
 		}
-		
+
 		fclose(fptr);
 
 		exit(0);
 	}
 }
-
-// /* This callback is called when data is readable on the UDP socket. */
-// void 	udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) 
-// {
-// 	unsigned char iv[16];
-
-// 	memcpy(iv, iv_1, 16);
-
-//     if(EV_ERROR & revents)
-//     {
-//       perror("got invalid event");
-//       return;
-//     }
-
-// 	int addr_len = sizeof(addr);
-    
-//     int bytes = recvfrom(watcher->fd, buffer, sizeof(buffer), 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
-
-// 	rsa_decrypt(&buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE], aes_key);
-
-// 	aes_decrypt(iv, aes_key, buffer, decrypted_full_packet);
-
-// 	unsigned char checksum[DIGEST_SIZE];
-
-// 	mbedtls_sha1_ret(decrypted_full_packet, 256, checksum);
-
-// 	if (check_sha1_sum(&decrypted_full_packet[256], checksum))
-// 		push_front(&data, decrypted_full_packet);
-// 	else
-// 		push_front(&data, (unsigned char *)"error");
-
-
-
-
-
-// 	if (bytes == 0)
-// 	{
-// 		ev_io_stop(loop, watcher);
-// 		perror("peer might closing");
-//     }
-// }
-
-// int main(void) 
-// {
-//     int port = DEFAULT_PORT;
-//     puts("udp_echo server started...");
-
-
-//     // Setup a udp listening socket.
-//     sd = socket(PF_INET, SOCK_DGRAM, 0);
-
-//     bzero(&addr, sizeof(addr));
-
-//     addr.sin_family = AF_INET;
-//     addr.sin_port = htons(port);
-//     addr.sin_addr.s_addr = INADDR_ANY;
-
-
-// 	if (bind(sd, (struct sockaddr*) &addr, sizeof(addr)) != 0)
-//         perror("bind");
-
-//     // Do the libev stuff.
-//     struct ev_loop *loop = ev_default_loop(0);
-
-//     ev_io udp_watcher;
-
-//     ev_io_init(&udp_watcher, udp_cb, sd, EV_READ);
-//     ev_io_start(loop, &udp_watcher);
-//     ev_loop(loop, 0);
-
-//     // This point is never reached.
-//     close(sd);
-	
-//     return EXIT_SUCCESS;
-// }

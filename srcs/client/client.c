@@ -2,6 +2,7 @@
 
 // TODO: clear out Makefile -> -I$(INC_SERVER)
 // TODO: what if < 8;
+// TODO: make headers fine;
 
 /* declared variables below global for the sig_handle function */
 

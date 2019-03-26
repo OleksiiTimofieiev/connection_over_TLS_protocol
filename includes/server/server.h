@@ -57,7 +57,6 @@ typedef struct 		s_data
 	struct s_data 	*next;
 }					t_data;
 
-
 void 	rsa_decrypt(unsigned char *input, unsigned char *output);
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
 bool 	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
