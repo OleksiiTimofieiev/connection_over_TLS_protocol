@@ -51,11 +51,11 @@ void	client_configuration(char **argv, unsigned char *initial_packet, int *delay
 void	add_to_string(unsigned char *str);
 void	counter_line_composer(unsigned char *dst, unsigned char *src);
 
-/* mbedtls module */
+/* mbedtls modules */
 
-void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
-void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet);
 void	aes_key_generation(unsigned char *key);
+void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet);
+void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
 
 
 

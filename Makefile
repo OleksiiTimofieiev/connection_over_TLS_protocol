@@ -1,30 +1,30 @@
-CLIENT			= client_app
-SERVER			= server_app
+CLIENT			= 	client_app
+SERVER			= 	server_app
 
 CLIENT_CODE		= 	client.c \
 					initialization_module.c \
 					string_iterator_routines.c \
 					encryption_module.c 
-SERVER_CODE		= server.c 
+SERVER_CODE		= 	server.c 
 			
-SRCS_CLIENT     = $(addprefix ./srcs/client/, $(CLIENT_CODE))
-SRCS_SERVER     = $(addprefix ./srcs/server/, $(SERVER_CODE))
+SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
+SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))
 
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= 	-Wall -Wextra -Werror
 
-OBJECTS_CLIENT 	= $(SRCS_CLIENT:.c=.o)
-OBJECTS_SERVER 	= $(SRCS_SERVER:.c=.o)
+OBJECTS_CLIENT 	= 	$(SRCS_CLIENT:.c=.o)
+OBJECTS_SERVER 	= 	$(SRCS_SERVER:.c=.o)
 
-INC_SERVER		= /Users/otimofie/.brew/Cellar/libev/4.24/include/
-LIBEV_PATH		= /Users/otimofie/.brew/Cellar/libev/4.24/lib/
+INC_SERVER		= 	/Users/otimofie/.brew/Cellar/libev/4.24/include/
+LIBEV_PATH		= 	/Users/otimofie/.brew/Cellar/libev/4.24/lib/
 
-MBEDTLS_INCLUDE	= /Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
-MBEDTLS_PATH	= /Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
+MBEDTLS_INCLUDE	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
+MBEDTLS_PATH	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
 
 #colors
-RESET			= \033[m
-GREEN       	= \033[01;38;05;46m
-YELLOW      	= \033[01;38;05;226m
+RESET			= 	\033[m
+GREEN       	= 	\033[01;38;05;46m
+YELLOW      	= 	\033[01;38;05;226m
 
 all: $(CLIENT) $(SERVER)
 
