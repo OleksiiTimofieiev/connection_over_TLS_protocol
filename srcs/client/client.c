@@ -111,7 +111,7 @@ void  sig_handle(int signal)
 		close(sockfd);
 
 		size_t i = 0;
-		
+
 		while (!isdigit(string_iterator[i]))
 			i++;
 

@@ -39,7 +39,6 @@ $(OBJECTS_CLIENT): %.o: %.c
 	@ gcc -c $(CFLAGS) -I$(MBEDTLS_INCLUDE) $< -o $@
 
 $(SERVER): $(OBJECTS_SERVER)
-# 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
 	@ gcc    $(CFLAGS)  -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER) -L$(MBEDTLS_PATH)  -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
