@@ -86,7 +86,7 @@ int		main(int argc, char **argv)
 	{
 		printf("%x ", key[i++]);
 	}
-     	printf("\n");
+    printf("\n");
 
 	/* *************************************** hash checksum variable *************************** */
 
@@ -107,6 +107,8 @@ int		main(int argc, char **argv)
 
 	unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
 
+	unsigned char encrypted_key_with_rsa[256];
+
     // for( i = 0; i < 16; i++ )
     //     mbedtls_printf( "%02x", digest[i] );
 
@@ -119,10 +121,22 @@ int		main(int argc, char **argv)
     //     mbedtls_printf( "%02x", digest[i] );
 
     // printf("\n");
+	unsigned char decrypted_key_with_rsa[32];
 
-    rsa_encrypt(key);
+    rsa_encrypt(key, encrypted_key_with_rsa);
 
-    rsa_decrypt();
+    rsa_decrypt(encrypted_key_with_rsa, decrypted_key_with_rsa);
+
+    int j = 0;
+
+	while (j < 32)
+	{
+		printf("%x ", decrypted_key_with_rsa[j]);;
+        j++;
+	}
+    printf("\n");
+
+
 
 	int delete = 0;
 
