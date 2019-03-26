@@ -21,7 +21,6 @@ CFLAGS			= 	-Wall -Wextra -Werror
 OBJECTS_CLIENT 	= 	$(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= 	$(SRCS_SERVER:.c=.o)
 
-
 MBEDTLS_INCLUDE	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
 MBEDTLS_PATH	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
 
@@ -41,7 +40,7 @@ $(OBJECTS_CLIENT): %.o: %.c
 
 $(SERVER): $(OBJECTS_SERVER)
 # 	@ gcc    $(CFLAGS) -I $(INC) $(SRCS) -L ./libft -lft -ltermcap -o $(CLIENT)
-	@ gcc    $(CFLAGS)  -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER)  -L$(MBEDTLS_PATH)  -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
+	@ gcc    $(CFLAGS)  -I$(MBEDTLS_INCLUDE) $(SRCS_SERVER) -L$(MBEDTLS_PATH)  -lmbedtls -lmbedx509 -lmbedcrypto -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
