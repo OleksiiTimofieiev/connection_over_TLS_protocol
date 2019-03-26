@@ -13,11 +13,6 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-
-
-
-
-
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
 #else
@@ -65,8 +60,9 @@ typedef struct 		s_data
 }					t_data;
 
 
-void rsa_decrypt(unsigned char *input, unsigned char *output);
+void 	rsa_decrypt(unsigned char *input, unsigned char *output);
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
-bool check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
+bool 	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
+void 	push_front(t_data **head_ref, unsigned char *new_data);
 
 #endif
