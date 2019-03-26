@@ -52,6 +52,7 @@ clean:
 	@ rm -f $(OBJECTS_SERVER)
 
 fclean: clean
+	@ rm -f UDP_INPUT.txt
 	@ rm -f $(CLIENT)
 	@ rm -f $(SERVER)
 
