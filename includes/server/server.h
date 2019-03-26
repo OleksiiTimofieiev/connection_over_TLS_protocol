@@ -50,6 +50,7 @@
 #define DIGEST_SIZE                 16
 #define LEN_OF_ENCPYPTED_AES_KEY    256
 
+#pragma pack(1)
 typedef struct 		s_data
 {
 	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE];
