@@ -11,13 +11,12 @@
 #include <sys/socket.h>
 #include <resolv.h>
 #include <unistd.h>
+#include <stdbool.h>
 
-#define DEFAULT_PORT 3333
-#define BUF_SIZE 1024
 
-#define INITIAL_PACKET_SIZE 256
-#define DIGEST_SIZE 16
-#define LEN_OF_ENCPYPTED_AES_KEY 256
+
+
+
 
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
@@ -49,12 +48,25 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
-#define PRIVATE_KEY_PATH "./rsa_keys/rsa_priv.txt"
+#define PRIVATE_KEY_PATH 			"./rsa_keys/rsa_priv.txt"
+#define DEFAULT_PORT    			3333
 
+#define INITIAL_PACKET_SIZE         256
+#define DIGEST_SIZE                 16
+#define LEN_OF_ENCPYPTED_AES_KEY    256
 
 // void rsa_decrypt(unsigned char *input, unsigned char *output);
 
+
+typedef struct 		s_data
+{
+	unsigned char 	data[INITIAL_PACKET_SIZE];
+	struct s_data 	*next;
+}					t_data;
+
+
 void rsa_decrypt(unsigned char *input, unsigned char *output);
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
+bool check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
 
 #endif

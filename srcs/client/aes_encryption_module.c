@@ -40,15 +40,5 @@ void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_f
 
 	ret = mbedtls_aes_setkey_enc( &aes, key, 256 );
 
-	// if (ret == 0)
-	// 	printf("%s\n", "successs on init of the key");
-	// else
-	// 	printf("%s\n", "wtf ?");
-
 	ret = mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, initial_full_packet, encrypted_full_packet );
-
-	// if (ret == 0)
-	// 	printf("%s\n", "successs on encription");
-	// else
-	// 	printf("%s\n", "wtf ?");
 }

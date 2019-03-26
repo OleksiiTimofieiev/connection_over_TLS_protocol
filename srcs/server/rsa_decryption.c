@@ -4,8 +4,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 {
 	FILE *f;
 	int ret = 1;
-	// int exit_code = MBEDTLS_EXIT_FAILURE;
-	// int c;/
 	size_t i;
 	mbedtls_rsa_context rsa;
 	mbedtls_mpi N, P, Q, D, E, DP, DQ, QP;
@@ -17,7 +15,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 
 	memset(result, 0, sizeof(result));
 
-	// mbedtls_printf( "\n  . Seeding the random number generator..." );
 	fflush(stdout);
 
 	mbedtls_rsa_init(&rsa, MBEDTLS_RSA_PKCS_V15, 0);
@@ -39,10 +36,7 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n",
 					   ret);
-		// goto exit;
 	}
-
-	// mbedtls_printf( "\n  . Reading private key from ./rsa/keys/rsa_priv.txt" );
 
 	fflush(stdout);
 
@@ -50,7 +44,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 	{
 		mbedtls_printf(" failed\n  ! Could not open rsa_priv.txt\n"
 					   "  ! Please run rsa_genkey first\n\n");
-		// goto exit;
 	}
 
 	if ((ret = mbedtls_mpi_read_file(&N, 16, f)) != 0 ||
@@ -65,7 +58,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_file returned %d\n\n",
 					   ret);
 		fclose(f);
-		// goto exit;
 	}
 	fclose(f);
 
@@ -73,24 +65,18 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_rsa_import returned %d\n\n",
 					   ret);
-		// goto exit;/
+
 	}
 
 	if ((ret = mbedtls_rsa_complete(&rsa)) != 0)
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_rsa_complete returned %d\n\n",
 					   ret);
-		// goto exit;
 	}
 
 	/*
      * Extract the RSA encrypted value from the text file
      */
-	// if( ( f = fopen( "result-enc.txt", "rb" ) ) == NULL )
-	// {
-	//     mbedtls_printf( "\n  ! Could not open %s\n\n", "result-enc.txt" );
-	//     // goto exit;
-	// }
 
 	i = 0;
 
@@ -99,8 +85,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 		buf[i] = input[i];
 		i++;
 	}
-
-	// fclose( f );
 
 	if (i != rsa.len)
 	{
@@ -112,8 +96,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
      * Decrypt the encrypted RSA data and print the result.
      */
 
-	// mbedtls_printf( "\n  . Decrypting the encrypted data" );
-
 	fflush(stdout);
 
 	ret = mbedtls_rsa_pkcs1_decrypt(&rsa, mbedtls_ctr_drbg_random,
@@ -121,18 +103,9 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 									buf, result, 1024);
 	if (ret != 0)
 	{
-		mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_decrypt returned %d\n\n",
-					   ret);
-		// goto exit;/
+		mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_decrypt returned %d\n\n", ret);
 	}
-
-	// mbedtls_printf( "\n  . OK\n\n" );
-	//
-	// mbedtls_printf( "The decrypted result is: '%s'\n\n", result );
-
-	// mbedtls_printf( "The decrypted result is: '%s'\n\n", result );
-
-	// print key
+	
 	int j = 0;
 
 	while (j < 32)
@@ -140,9 +113,6 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 		output[j] = result[j];
 		j++;
 	}
-	printf("\n");
-
-	// exit_code = MBEDTLS_EXIT_SUCCESS;
 
 	mbedtls_ctr_drbg_free(&ctr_drbg);
 	mbedtls_entropy_free(&entropy);

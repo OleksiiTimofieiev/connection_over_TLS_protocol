@@ -12,6 +12,8 @@ CLIENT_CODE		= 	client.c \
 SERVER_CODE		= 	server.c \
 					rsa_decryption.c \
 					aes_decryption.c \
+					check_sha1.c \
+					linked_list_functions.c \
 			
 SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))
