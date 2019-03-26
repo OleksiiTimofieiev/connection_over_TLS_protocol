@@ -12,13 +12,17 @@
 #define DEFAULT_PORT    3333
 #define BUF_SIZE        1024
 
+#define INITIAL_PACKET_SIZE         256
+#define DIGEST_SIZE                 16
+#define LEN_OF_ENCPYPTED_AES_KEY    256
+
 // gcc -Wall -Wextra -Werror -o server server.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
 
 // Lots of globals, what's the best way to get rid of these?
 int sd; // socket descriptor
 struct sockaddr_in addr;
 int addr_len = sizeof(addr);
-char buffer[BUF_SIZE];
+unsigned char buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 
 // This callback is called when data is readable on the UDP socket.
 void udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
@@ -29,10 +33,12 @@ void udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
       return;
     }
     // puts("udp socket has become readable");
-    int bytes = recvfrom(watcher->fd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
+    int bytes = recvfrom(watcher->fd, buffer, sizeof(buffer), 0, (struct sockaddr*) &addr, (socklen_t *) &addr_len);
+
+    printf("bytes received -> %d\n", bytes);
 
     // add a null to terminate the input, as we're going to use it as a string
-    buffer[bytes] = '\0';
+    // buffer[bytes] = '\0';
 
     printf("udp client said: %s\n", buffer);
 

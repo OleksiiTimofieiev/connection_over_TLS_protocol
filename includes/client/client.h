@@ -43,10 +43,11 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
-#define ID_SIZE 				8
-#define MAX_ITERATOR_SIZE	 	248 /* 256 - 8 */
-#define INITIAL_PACKET_SIZE		256
-#define DIGEST_SIZE				16
+#define ID_SIZE 					8
+#define MAX_ITERATOR_SIZE	 		248 /* 256 - 8 */
+#define INITIAL_PACKET_SIZE			256
+#define DIGEST_SIZE					16
+#define LEN_OF_ENCPYPTED_AES_KEY	256
 
 
 

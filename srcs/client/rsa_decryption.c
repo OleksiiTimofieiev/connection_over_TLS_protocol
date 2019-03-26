@@ -132,13 +132,16 @@ void	rsa_decrypt(unsigned char *resulto)
 // 
     // mbedtls_printf( "The decrypted result is: '%s'\n\n", result );
 
-    	int j = 0;
 
-	while (j < 32)
-	{
-		printf("%x ", result[j++]);
-	}
-    printf("\n");
+
+    // print key
+    	// int j = 0;
+
+	// while (j < 32)
+	// {
+	// 	printf("%x ", result[j++]);
+	// }
+ //    printf("\n");
 
     // exit_code = MBEDTLS_EXIT_SUCCESS;
 
