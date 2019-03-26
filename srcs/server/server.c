@@ -84,6 +84,7 @@ void 	udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
 			 i = 0;
 			int j = 256;
 
+			// bool function;
 			while(i < 16)
 			{
 				if (checksum[i] != decrypted_full_packet[j])
