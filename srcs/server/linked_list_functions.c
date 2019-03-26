@@ -4,8 +4,13 @@
 void	push_front(t_data **head_ref, unsigned char *new_data)
 {
 	/* 1. allocate node */
-	t_data *new_node = (t_data *)malloc(sizeof(t_data));
+	t_data *new_node;
 
+	if (!(new_node = (t_data *)malloc(sizeof(t_data))))
+	{
+		printf("%s\n", "No memory left");
+		exit(0);
+	}
 	/* 2. put in the data  */
 	memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE + DIGEST_SIZE);
 
