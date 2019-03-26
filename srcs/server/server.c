@@ -113,7 +113,6 @@ void	sig_handle(int signal)
 				fprintf(fptr, "%s", "\n");
 				data = data->next;
 			}
-
 			fclose(fptr);
 		}
 		exit(0);
