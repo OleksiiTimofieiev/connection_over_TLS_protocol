@@ -71,26 +71,40 @@ void 	udp_cb(struct ev_loop *loop, struct ev_io *watcher, int revents) {
 			// 	printf("%x ", iv[i]);
 
 			int i = 0;
+
 			while(i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
 			{
 				printf("%x ", decrypted_full_packet[i++]);
+			}
+
+			unsigned char checksum[DIGEST_SIZE];
+
+			mbedtls_sha1_ret(decrypted_full_packet, 256, checksum);
+
+			 i = 0;
+			int j = 256;
+
+			while(i < 16)
+			{
+				if (checksum[i] != decrypted_full_packet[j])
+					printf("wtf ?\n");
+				else
+				{
+					printf("%d", i + 1);
+				}
+				
+				i++;
+				j++;
 			}
 			
 
 				// printf("udp client said: %s\n", buffer);
 
-			if (bytes == 0)
+				if (bytes == 0)
 			{
 				ev_io_stop(loop, watcher);
 				perror("peer might closing");
-     } // free(watcher);
-
-    // (void *)*w;
-
-    // Echo it back.
-    // WARNING: this is probably not the right way to do it with libev.
-    // Question: should we be setting a callback on sd becomming writable here instead?
-    // sendto(sd, buffer, bytes, 0, (struct sockaddr*) &addr, sizeof(addr));
+     }
 }
 
 int main(void) {

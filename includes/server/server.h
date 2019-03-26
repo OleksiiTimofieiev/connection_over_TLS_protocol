@@ -49,9 +49,12 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
+#define PRIVATE_KEY_PATH "./rsa_keys/rsa_priv.txt"
+
+
 // void rsa_decrypt(unsigned char *input, unsigned char *output);
 
-void 	rsa_decrypt(unsigned char *input, unsigned char *output);
+void rsa_decrypt(unsigned char *input, unsigned char *output);
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
 
 #endif

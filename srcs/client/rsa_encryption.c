@@ -41,7 +41,7 @@ void	rsa_encrypt(unsigned char *key, unsigned char *output)
 
     fflush( stdout );
 
-    if( ( f = fopen( "./rsa_keys/rsa_pub.txt", "rb" ) ) == NULL )
+    if( ( f = fopen(PUBLIC_KEY_PATH, "rb" ) ) == NULL )
     {
         mbedtls_printf( " failed\n  ! Could not open rsa_pub.txt\n" \
                 "  ! Please run rsa_genkey first\n\n" );

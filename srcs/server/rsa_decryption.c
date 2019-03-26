@@ -46,7 +46,7 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 
 	fflush(stdout);
 
-	if ((f = fopen("./rsa_keys/rsa_priv.txt", "rb")) == NULL)
+	if ((f = fopen(PRIVATE_KEY_PATH, "rb")) == NULL)
 	{
 		mbedtls_printf(" failed\n  ! Could not open rsa_priv.txt\n"
 					   "  ! Please run rsa_genkey first\n\n");

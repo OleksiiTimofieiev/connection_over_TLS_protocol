@@ -1,11 +1,8 @@
 #include "../../includes/client/client.h"
 
 // TODO: delete all comments;
-// TODO: defines to header;
 // TODO: detect connection refused in UDP;
 // TODO: handle overflow on port and delay;
-
-// TODO: encription_module.c;
 
 // gcc -Wall -Wextra -Werror -o client client.c -I/Users/otimofie/.brew/Cellar/libev/4.24/include -L/Users/otimofie/.brew/Cellar/libev/4.24/lib -lev
  
