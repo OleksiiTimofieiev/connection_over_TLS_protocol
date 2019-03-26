@@ -1,18 +1,27 @@
 #include "../../includes/server/server.h"
 
+// TODO: add validation;
+
 /* used global variable for the signal interrupt handling */
 t_data 					*data = NULL;
 int 					sockfd;
 
 void sig_handle(int signal);
 
-int main()
+int main(int argc, char **argv)
 {
 	struct 				sockaddr_in addr;
 	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 	unsigned char		aes_key[32];
 	unsigned char		decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = {0};
 	const unsigned char iv_1[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
+	
+	if (argc != 3)
+		exit(0);
+	short				port = atoi(argv[1]);
+	int					number_of_threads = atoi(argv[2]);
+
+	printf("%d %d", port, number_of_threads);
 
 	/* **************************************** signal definition ******************************** */
 
@@ -32,7 +41,7 @@ int main()
 	// Filling server information
 	servaddr.sin_family = AF_INET; // IPv4
 	servaddr.sin_addr.s_addr = INADDR_ANY;
-	servaddr.sin_port = htons(DEFAULT_PORT);
+	servaddr.sin_port = htons(port);
 
 	// Bind the socket with the server address
 	if (bind(sockfd, (struct sockaddr *)&servaddr,

@@ -41,7 +41,6 @@
 #include "mbedtls/rsa.h"
 
 #define PRIVATE_KEY_PATH 			"./rsa_keys/rsa_priv.txt"
-#define DEFAULT_PORT    			3333
 #define INITIAL_PACKET_SIZE         256
 #define DIGEST_SIZE                 16
 #define LEN_OF_ENCPYPTED_AES_KEY    256
