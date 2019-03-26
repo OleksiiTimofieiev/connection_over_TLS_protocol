@@ -2,7 +2,7 @@
 
 // TODO: add validation;
 
-/* used global variable for the signal interrupt handling */
+/* used global variables for the signal interrupt handling */
 t_data 					*data = NULL;
 int 					sockfd;
 
