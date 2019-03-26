@@ -63,8 +63,4 @@ void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_pack
 void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
 void	rsa_encrypt(unsigned char *intput, unsigned char *output);
 
-
-
-
-
 #endif
