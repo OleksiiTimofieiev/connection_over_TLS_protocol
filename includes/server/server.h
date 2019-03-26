@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-// #include <ev.h>
-
-
 #include <errno.h>
 #include <sys/socket.h>
 #include <resolv.h>
@@ -45,11 +42,11 @@
 
 #define PRIVATE_KEY_PATH 			"./rsa_keys/rsa_priv.txt"
 #define DEFAULT_PORT    			3333
-
 #define INITIAL_PACKET_SIZE         256
 #define DIGEST_SIZE                 16
 #define LEN_OF_ENCPYPTED_AES_KEY    256
 
+/* linked list data structure */
 #pragma pack(1)
 typedef struct 		s_data
 {
