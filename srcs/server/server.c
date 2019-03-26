@@ -1,9 +1,10 @@
 #include "../../includes/server/server.h"
 
+/* used global variable for the signal interrupt handling */
 t_data 					*data = NULL;
 int 					sockfd;
 
-void sig_handle(int sgnal);
+void sig_handle(int signal);
 
 int main()
 {
@@ -34,7 +35,6 @@ int main()
 	servaddr.sin_port = htons(DEFAULT_PORT);
 
 	// Bind the socket with the server address
-
 	if (bind(sockfd, (struct sockaddr *)&servaddr,
 				sizeof(servaddr)) != 0)
 	{
@@ -82,29 +82,31 @@ void	sig_handle(int signal)
 	{
 		close(sockfd);
 
-		FILE *fptr = NULL;
-
-		fptr = fopen("UDP_INPUT.txt", "wb");
-
-		if (fptr == NULL)
+		if (data)
 		{
-			printf("Error!");
-			exit(1);
+			FILE *fptr = NULL;
+
+			fptr = fopen("UDP_INPUT.txt", "wb");
+
+			if (fptr == NULL)
+			{
+				printf("Error!");
+				exit(1);
+			}
+
+			int i = 0 ;
+
+			while (data)
+			{
+				i = 0;
+				while (i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
+					fprintf(fptr, "%.2x", data->data[i++]);
+				fprintf(fptr, "%s", "\n");
+				data = data->next;
+			}
+
+			fclose(fptr);
 		}
-
-		int i = 0 ;
-
-		while (data)
-		{
-			i = 0;
-			while (i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
-				fprintf(fptr, "%.2x", data->data[i++]);
-			fprintf(fptr, "%s", "\n");
-			data = data->next;
-		}
-
-		fclose(fptr);
-
 		exit(0);
 	}
 }
