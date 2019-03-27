@@ -20,7 +20,10 @@ int 	main(int argc, char **argv)
 	/* ***************************** basic input validation ****************************************************************** */
 
 	if (argc != 3)
+	{
+		printf("Invalid quantity of arguments\nUsage: ./server_app <port> <quantity of threads>");
 		exit(0);
+	}
 
 	/* ***************************** parsing of the command line ************************************************************* */
 

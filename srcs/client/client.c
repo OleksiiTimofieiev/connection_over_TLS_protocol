@@ -26,7 +26,7 @@ int		main(int argc, char **argv)
 
 	if (!(validation_of_program_arguments(argc, argv)))
 	{
-		printf("%s\n", "usage: <id> <delay> <ip:port>");
+		printf("%s\n", "usage: ./client_app <id> <delay> <ip:port>");
 		exit (0);
 	}
 
