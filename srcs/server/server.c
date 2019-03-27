@@ -16,13 +16,7 @@ void	*handle_new_data( void *data )
 	unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = {0};
 	const unsigned char iv_1[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
 
-	// unsigned char input[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY] = {*(unsigned char *)data};
-
 	t_thread_data *input = (t_thread_data *)data;
-
-	// int i = 0;
-
-	// while (i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
 
 	unsigned char iv[16];
 
