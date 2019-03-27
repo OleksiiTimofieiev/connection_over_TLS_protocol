@@ -113,17 +113,20 @@ void	sig_handle(int signal)
 
 			int i = 0 ;
 
-			while (l_data)
+			t_data * ptr = l_data;
+
+			while (ptr)
 			{
 				i = 0;
 				while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
 				{
-					fprintf(fptr, "%.2x", l_data->data[i]);
+					fprintf(fptr, "%.2x", ptr->data[i]);
 					i++;
 				}
 				fprintf(fptr, "%s", "\n");
-				l_data = l_data->next;
+				ptr = ptr->next;
 			}
+			deleteList(&l_data);
 			fclose(fptr);
 		}
 		exit(0);

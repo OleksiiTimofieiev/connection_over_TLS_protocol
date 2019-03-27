@@ -17,3 +17,21 @@ void	push_front(t_data **head_ref, unsigned char *new_data)
 
 	(*head_ref) = new_node;
 }
+
+void	deleteList(t_data **head_ref)
+{
+	/* deref head_ref to get the real head */
+	t_data *current = *head_ref;
+	t_data *next;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->data);
+		current = next;
+	}
+
+	/* deref head_ref to affect the real head back 
+      in the caller. */
+	*head_ref = NULL;
+}
