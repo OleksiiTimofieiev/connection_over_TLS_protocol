@@ -9,7 +9,7 @@ void 	sig_handle(int signal);
 
 int 	main(int argc, char **argv)
 {
-	/* **************************************** signal definition ******************************** */
+	/* **************************************** signal definition ************************************************************ */
 
 	signal(SIGINT, &sig_handle);
 
@@ -17,28 +17,28 @@ int 	main(int argc, char **argv)
 
 	pthread_mutex_init(&mutex, NULL);
 
-	/* ***************************** basic input validation ********************* */
+	/* ***************************** basic input validation ****************************************************************** */
 
 	if (argc != 3)
 		exit(0);
 
-	/* ***************************** parsing of the command line ********************* */
+	/* ***************************** parsing of the command line ************************************************************* */
 
 	short				port = atoi(argv[1]);
 	int					number_of_threads = atoi(argv[2]);
 
-	/* ***************************** init of thread pool ********************* */
+	/* ***************************** init of thread pool ******************************************************************** */
 
 	t_thread			thread_pool[number_of_threads];
 
 	memset(thread_pool, 0x0, number_of_threads);
 
-	/* ***************************** init of socket ********************* */
+	/* ***************************** init of socket ************************************************************************ */
 
 	struct 				sockaddr_in addr;
 	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 
-	/* **************************************** socket initialization ******************************** */
+	/* **************************************** socket initialization ***************************************************** */
 
 	struct sockaddr_in servaddr, cliaddr;
 
@@ -68,7 +68,7 @@ int 	main(int argc, char **argv)
 
 	int n = 0;
 
-	/* **************************************** DATAGRAM RECV ROUTINE ******************************** */
+	/* **************************************** DATAGRAM RECV ROUTINE **************************************************** */
 
 	while (42)
 	{
@@ -77,7 +77,7 @@ int 	main(int argc, char **argv)
 					(socklen_t *)&addr_len);
 		if (n > 0)
 		{
-			/* **************************************** creation of the thread task ******************************** */
+	/* **************************************** creation of the thread task ********************************************* */
 
 			thread_create(thread_pool, buffer, number_of_threads);
 
@@ -106,7 +106,7 @@ void	sig_handle(int signal)
 				exit(1);
 			}
 
-			/* **************************************** output to file ******************************** */
+			/* **************************************** output to file ********************************************** */
 
 			int i = 0 ;
 

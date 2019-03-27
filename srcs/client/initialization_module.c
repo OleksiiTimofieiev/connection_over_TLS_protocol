@@ -27,7 +27,8 @@ bool	validation_of_program_arguments(int argc, char **argv)
 
 void	client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator)
 {
-	memcpy(initial_packet, argv[1], 8);
+	memset(initial_packet, 0x0, 8);
+	memcpy(initial_packet, argv[1], strlen(argv[1]));
 
 	/* 
 	** usleep() takes microseconds, 
