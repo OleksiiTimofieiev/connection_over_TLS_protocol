@@ -1,6 +1,5 @@
 #include "../../includes/client/client.h"
 
-// TODO: what if < 8;
 
 /* declared variables below global for the sig_handle function */
 
