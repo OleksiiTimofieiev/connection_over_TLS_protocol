@@ -26,7 +26,9 @@ void	deleteList(t_data **head_ref)
 
 	while (current != NULL)
 	{
+		
 		next = current->next;
+		free(current->data);
 		current = next;
 	}
 
