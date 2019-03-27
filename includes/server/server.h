@@ -9,6 +9,7 @@
 #include <resolv.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <pthread.h>
 
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
@@ -65,7 +66,7 @@ typedef struct 		s_thread
 }					t_thread;
 
 /* linked list data structure */
-#pragma pack(1)
+
 typedef struct 		s_data
 {
 	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE];
