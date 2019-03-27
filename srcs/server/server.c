@@ -129,6 +129,7 @@ void	sig_handle(int signal)
 			deleteList(&l_data);
 			fclose(fptr);
 		}
+		system("leaks -q server_app");
 		exit(0);
 	}
 }
