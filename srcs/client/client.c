@@ -20,7 +20,9 @@ int		main(int argc, char **argv)
 
 	int				delay 								= 0;
 	short			port 								= 0;
-	unsigned char 	initial_packet[INITIAL_PACKET_SIZE] = { 0 };
+	unsigned char 	initial_packet[INITIAL_PACKET_SIZE];
+
+	bzero(initial_packet, INITIAL_PACKET_SIZE);
 
 	/* **************************************** validation *************************************** */	
 
@@ -50,11 +52,12 @@ int		main(int argc, char **argv)
 
    	/* *************************************** packet + checksum ********************************* */
 
-	unsigned char initial_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
+	unsigned char initial_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE];
+	bzero(initial_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
 
 	/* *************************************** encryption ********************************* */
 
-	unsigned char encrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = { 0 };
+	unsigned char encrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = {0};
 	unsigned char encrypted_full_packet_with_rsa_key[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY] = { 0 };
 	unsigned char iv_buf[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
 	unsigned char iv[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};

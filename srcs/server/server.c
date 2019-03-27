@@ -101,7 +101,7 @@ void	sig_handle(int signal)
 		{
 			FILE *fptr = NULL;
 
-			fptr = fopen("UDP_INPUT.txt", "wb");
+			fptr = fopen("UDP_INPUT", "w");
 
 			if (fptr == NULL)
 			{
