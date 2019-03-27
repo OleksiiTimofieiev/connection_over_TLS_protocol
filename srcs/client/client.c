@@ -1,8 +1,6 @@
 #include "../../includes/client/client.h"
 
-// TODO: clear out Makefile -> -I$(INC_SERVER)
 // TODO: what if < 8;
-// TODO: make headers fine;
 
 /* declared variables below global for the sig_handle function */
 
@@ -123,7 +121,6 @@ void  sig_handle(int signal)
 
 void	init_socket(short port)
 {
-  
     if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
         perror("socket creation failed"); 
         exit(EXIT_FAILURE); 

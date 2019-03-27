@@ -9,12 +9,11 @@ static size_t	str_len(unsigned char *str)
 		if (str[i] == 0)
 			break;
 		i--;
-			
 	}
 	return (i);
 }
 
-void	add_to_string(unsigned char *str)
+void			add_to_string(unsigned char *str)
 {
 	if (str[MAX_ITERATOR_SIZE - 1] <= '8')
 		str[MAX_ITERATOR_SIZE - 1] += 1;
@@ -39,7 +38,7 @@ void	add_to_string(unsigned char *str)
 	}
 }
 
-void	counter_line_composer(unsigned char *dst, unsigned char *src)
+void			counter_line_composer(unsigned char *dst, unsigned char *src)
 {
 	size_t		copy_start = 0;
 	size_t		i = 0;

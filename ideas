@@ -1,7 +1,0 @@
-Plan:
-
-1. Makefile with the necessary libs;
-2. key generation / encription funcs;
-3. UDP connection;
-4. pthreads server;
-5. kill all unnesessary contexts;

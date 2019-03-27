@@ -4,7 +4,7 @@ void	rsa_encrypt(unsigned char *key, unsigned char *output)
 {
  	FILE						*f;
     int 						ret = 1;
-    size_t 	i;
+    size_t 						i;
     mbedtls_rsa_context 		rsa;
     mbedtls_entropy_context 	entropy;
     mbedtls_ctr_drbg_context 	ctr_drbg;

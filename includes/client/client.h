@@ -1,5 +1,5 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef 	CLIENT_H
+#define 	CLIENT_H
 
 #include <stdio.h>
 #include <stdlib.h> 
@@ -24,11 +24,11 @@
 #else
 #include <stdio.h>
 #include <stdlib.h>
-#define mbedtls_fprintf         fprintf
-#define mbedtls_printf          printf
-#define mbedtls_exit            exit
-#define MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+#define 	mbedtls_fprintf         fprintf
+#define 	mbedtls_printf          printf
+#define 	mbedtls_exit            exit
+#define 	MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+#define 	MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
 #endif /* MBEDTLS_PLATFORM_C */
 
 /* generate aes key */
@@ -43,24 +43,24 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
-#define ID_SIZE 					8
-#define MAX_ITERATOR_SIZE	 		248 /* 256 - 8 */
-#define INITIAL_PACKET_SIZE			256
-#define DIGEST_SIZE					16
-#define LEN_OF_ENCPYPTED_AES_KEY	256
+#define 	ID_SIZE 					8
+#define 	MAX_ITERATOR_SIZE	 		248 /* 256 - 8 */
+#define 	INITIAL_PACKET_SIZE			256
+#define 	DIGEST_SIZE					16
+#define 	LEN_OF_ENCPYPTED_AES_KEY	256
 
-#define PUBLIC_KEY_PATH "./rsa_keys/rsa_pub.txt"
+#define 	PUBLIC_KEY_PATH "./rsa_keys/rsa_pub.txt"
 
-bool	validation_of_program_arguments(int argc, char **argv);
-void	client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator);
-void	add_to_string(unsigned char *str);
-void	counter_line_composer(unsigned char *dst, unsigned char *src);
+bool		validation_of_program_arguments(int argc, char **argv);
+void		client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator);
+void		add_to_string(unsigned char *str);
+void		counter_line_composer(unsigned char *dst, unsigned char *src);
 
-/* mbedtls modules */
+/* mbedtls functions */
 
-void	aes_key_generation(unsigned char *key);
-void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet);
-void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
-void	rsa_encrypt(unsigned char *intput, unsigned char *output);
+void		aes_key_generation(unsigned char *key);
+void		sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet);
+void		aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet);
+void		rsa_encrypt(unsigned char *intput, unsigned char *output);
 
 #endif
