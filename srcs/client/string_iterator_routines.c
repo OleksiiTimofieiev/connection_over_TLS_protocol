@@ -40,7 +40,6 @@ void			add_to_string(unsigned char *str)
 
 void			counter_line_composer(unsigned char *dst, unsigned char *src)
 {
-	// size_t		copy_start = 0;
 	size_t		i = 0;
 
 	while (i < MAX_ITERATOR_SIZE)
@@ -49,10 +48,6 @@ void			counter_line_composer(unsigned char *dst, unsigned char *src)
 			break ;
 		i++;
 	}
-	// printf("copy_start -> %zu\n", copy_start);
-	// printf("copy_start -> %zu\n", i);
-
-	// memset(&src[20], 0x0, 100);
-
+	
 	memcpy(&dst[8], &src[i], MAX_ITERATOR_SIZE - i);
 }
