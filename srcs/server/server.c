@@ -5,12 +5,14 @@
 
 /* used global variables for the signal interrupt handling */
 t_data 					*l_data = NULL;
+pthread_mutex_t 		mutex;
 int 					sockfd;
 
 void 	sig_handle(int signal);
 
 void	*handle_new_data( void *data )
 {
+	
 
 	unsigned char aes_key[32];
 	unsigned char decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = {0};
@@ -30,10 +32,14 @@ void	*handle_new_data( void *data )
 
 	mbedtls_sha1_ret(decrypted_full_packet, 256, checksum);
 
+	pthread_mutex_lock(&mutex);
+
 	if (check_sha1_sum(&decrypted_full_packet[256], checksum))
 		push_front(&l_data, decrypted_full_packet);
 	else
 		push_front(&l_data, (unsigned char *)"error");
+
+	pthread_mutex_unlock(&mutex);
 
 	input->current_status = FINISHED;
 
@@ -88,6 +94,8 @@ void thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_lim
 
 int main(int argc, char **argv)
 {
+	pthread_mutex_init(&mutex, NULL);
+
 	struct 				sockaddr_in addr;
 	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 	
@@ -164,6 +172,7 @@ void	sig_handle(int signal)
 	if (signal == SIGINT)
 	{
 		close(sockfd);
+		pthread_mutex_destroy(&mutex);
 
 		if (l_data)
 		{
