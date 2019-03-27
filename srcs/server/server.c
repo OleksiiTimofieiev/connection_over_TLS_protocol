@@ -60,7 +60,7 @@ int 	main(int argc, char **argv)
 	servaddr.sin_port = htons(port);
 
 	// Bind the socket with the server address
-	if (bind(sockfd, (struct sockaddr *)&servaddr,
+	if (bind(sockfd, (const struct sockaddr *)&servaddr,
 				sizeof(servaddr)) != 0)
 	{
 		perror("bind failed");
