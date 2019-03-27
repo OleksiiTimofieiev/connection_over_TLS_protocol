@@ -33,12 +33,11 @@ void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_pack
 
 void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet)
 {
-	int 				ret;
 	mbedtls_aes_context aes;
 
 	mbedtls_aes_init(&aes);
 
-	ret = mbedtls_aes_setkey_enc( &aes, key, 256 );
+	mbedtls_aes_setkey_enc( &aes, key, 256 );
 
-	ret = mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, initial_full_packet, encrypted_full_packet );
+	mbedtls_aes_crypt_cbc( &aes, MBEDTLS_AES_ENCRYPT, INITIAL_PACKET_SIZE + DIGEST_SIZE, iv, initial_full_packet, encrypted_full_packet );
 }
