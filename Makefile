@@ -22,9 +22,6 @@ CFLAGS			= 	-Wall -Wextra -Werror
 OBJECTS_CLIENT 	= 	$(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= 	$(SRCS_SERVER:.c=.o)
 
-# MBEDTLS_INCLUDE	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include/
-# MBEDTLS_PATH	= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
-
 #colors
 RESET			= 	\033[m
 GREEN       	= 	\033[01;38;05;46m
