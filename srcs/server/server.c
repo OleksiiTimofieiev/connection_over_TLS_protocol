@@ -116,8 +116,12 @@ void	sig_handle(int signal)
 			while (l_data)
 			{
 				i = 0;
-				while (i < INITIAL_PACKET_SIZE + DIGEST_SIZE)
-					fprintf(fptr, "%.2x", l_data->data[i++]);
+				while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
+				{
+					fprintf(fptr, "%.2x", l_data->data[i]);
+					// printf("%.2x", l_data->data[i]);
+					i++;
+				}
 				fprintf(fptr, "%s", "\n");
 				l_data = l_data->next;
 			}
