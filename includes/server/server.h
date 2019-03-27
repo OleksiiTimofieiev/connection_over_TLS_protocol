@@ -53,6 +53,25 @@ typedef struct 		s_data
 	struct s_data 	*next;
 }					t_data;
 
+#define INACTIVE 	0
+#define RUNNING 	1
+#define FINISHED 	2
+
+typedef struct 		s_thread_data
+{
+	short			current_status;
+	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
+}					t_thread_data;
+
+
+/* threads struct */
+typedef struct 		s_thread
+{
+	t_thread_data	data;
+	pthread_t		thread;
+
+}					t_thread;
+
 void 	rsa_decrypt(unsigned char *input, unsigned char *output);
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
 bool 	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
