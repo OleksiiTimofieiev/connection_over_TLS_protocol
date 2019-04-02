@@ -1,4 +1,4 @@
-#include "../../includes/server/server.h"
+#include "server/server.h"
 
 t_data *l_data 		= NULL;
 pthread_mutex_t 	mutex;

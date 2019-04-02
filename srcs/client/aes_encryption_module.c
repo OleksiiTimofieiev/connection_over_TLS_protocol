@@ -1,4 +1,4 @@
-#include "../../includes/client/client.h"
+#include "client/client.h"
 
 void	aes_key_generation(unsigned char *key)
 {
