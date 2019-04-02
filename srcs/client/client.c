@@ -8,7 +8,7 @@ struct sockaddr_in 		servaddr;
 unsigned char			string_iterator[MAX_ITERATOR_SIZE];
 
 void  	sig_handle(int sgnal);
-void	init_socket(short port);
+void	init_socket(char *ip_address, short port);
 
 int		main(int argc, char **argv)
 {
@@ -20,6 +20,7 @@ int		main(int argc, char **argv)
 
 	int				delay 								= 0;
 	short			port 								= 0;
+	char			*ip_address 						= NULL;
 	unsigned char 	initial_packet[INITIAL_PACKET_SIZE];
 
 	bzero(initial_packet, INITIAL_PACKET_SIZE);
@@ -34,11 +35,12 @@ int		main(int argc, char **argv)
 
 	/* **************************************** configuration routines ************************** */
 
-	client_configuration(argv, initial_packet, &delay, &port, string_iterator);
+	client_configuration(argv, initial_packet, &delay, &port, string_iterator, &ip_address);
 
 	/* *************************************** socket initializatiion *************************** */
 	
-	init_socket(port);
+	init_socket(ip_address, port);
+	free(ip_address);
 
 	/* *************************************** aes key generation ******************************* */
 
@@ -66,7 +68,7 @@ int		main(int argc, char **argv)
 	while (42)
 	{
 		/* adding value of the string iterator to the packet */
-		 counter_line_composer(initial_packet, string_iterator);
+		counter_line_composer(initial_packet, string_iterator);
 		 
 		/* generation of the checksum for the packet */
 		sha1_checksum_generation(digest, initial_packet);
@@ -92,11 +94,11 @@ int		main(int argc, char **argv)
 		/* +1 to the string iterator */
 		add_to_string(string_iterator);
 		 
-		 /* adding new value of the string iterator to the string */
-		 counter_line_composer(initial_packet, string_iterator);
+		/* adding new value of the string iterator to the string */
+		counter_line_composer(initial_packet, string_iterator);
 
 		/* delay for the process */
-		  usleep(delay);
+		usleep(delay);
 	}      
 
 	close(sockfd); 
@@ -121,7 +123,7 @@ void  sig_handle(int signal)
 	}
 }
 
-void	init_socket(short port)
+void	init_socket(char *ip_address, short port)
 {
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
 		printf("Socket creation failed. ERROR: %s\n", strerror(errno));
@@ -131,6 +133,7 @@ void	init_socket(short port)
 	memset(&servaddr, 0, sizeof(servaddr)); 
 	  
 	servaddr.sin_family = AF_INET; 
-	servaddr.sin_port = htons(port); 
-	servaddr.sin_addr.s_addr = INADDR_ANY; 
+	servaddr.sin_port = htons(port);
+
+	inet_pton(AF_INET, ip_address, &(servaddr.sin_addr));
 }

@@ -54,7 +54,7 @@
 #define 	PUBLIC_KEY_PATH "./rsa_keys/rsa_pub.txt"
 
 bool		validation_of_program_arguments(int argc, char **argv);
-void		client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator);
+void		client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator, char **str);
 void		add_to_string(unsigned char *str);
 void		counter_line_composer(unsigned char *dst, unsigned char *src);
 
