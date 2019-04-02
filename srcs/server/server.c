@@ -3,6 +3,8 @@
 /* used global variables for the signal interrupt handling and to avoid race condition */
 extern t_data 					*l_data;
 extern pthread_mutex_t 			mutex;
+pthread_mutex_t 				mutex_main;
+
 int 							sockfd;
 
 void 	sig_handle(int signal);
@@ -81,8 +83,11 @@ int 	main(int argc, char **argv)
 		if (n > 0)
 		{
 	/* **************************************** creation of the thread task ********************************************* */
+			pthread_mutex_lock(&mutex_main);
 
 			thread_create(thread_pool, buffer, number_of_threads);
+			
+			pthread_mutex_unlock(&mutex_main);
 
 			n = 0;
 		}
