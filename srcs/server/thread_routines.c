@@ -46,8 +46,8 @@ void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_li
 	int ret, i;
 
 	/*
-     * Find inactive or finished thread slot
-     */
+	 * Find inactive or finished thread slot
+	 */
 
 	for (i = 0; i < threads_limit; i++)
 	{
@@ -68,8 +68,8 @@ void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_li
 	}
 
 	/*
-     * Fill thread-info for thread
-     */
+	 * Fill thread-info for thread
+	 */
 
 	memcpy(thread_pool[i].data.data, buffer, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY);
 
