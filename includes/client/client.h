@@ -43,6 +43,8 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
+#include <errno.h>
+
 #define 	ID_SIZE 					8
 #define 	MAX_ITERATOR_SIZE	 		248 /* 256 - 8 */
 #define 	INITIAL_PACKET_SIZE			256

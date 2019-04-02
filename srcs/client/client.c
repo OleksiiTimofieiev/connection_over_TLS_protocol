@@ -123,10 +123,11 @@ void  sig_handle(int signal)
 
 void	init_socket(short port)
 {
-    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
-        perror("socket creation failed"); 
+    if ( (sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 ) 
+    { 
+        printf("Socket creation failed. ERROR: %s\n", strerror(errno));
         exit(EXIT_FAILURE); 
-    } 
+    }
   
     memset(&servaddr, 0, sizeof(servaddr)); 
       

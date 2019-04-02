@@ -27,21 +27,24 @@ RESET			= 	\033[m
 GREEN       	= 	\033[01;38;05;46m
 YELLOW      	= 	\033[01;38;05;226m
 
+MBEDTLS_INC		= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/include
+MBEDTLS_LIB		= 	/Users/otimofie/.brew/Cellar/mbedtls/2.13.0/lib
+
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
-	@ gcc    $(CFLAGS)  $(SRCS_CLIENT) -lmbedtls -lmbedx509 -lmbedcrypto -o $(CLIENT)
+	@ gcc    $(CFLAGS)  -I$(MBEDTLS_INC) $(SRCS_CLIENT) -L$(MBEDTLS_LIB) -lmbedtls -lmbedx509 -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
-	@ gcc -c $(CFLAGS) $< -o $@
+	@ gcc -c -I$(MBEDTLS_INC) $(CFLAGS) $< -o $@
 
 $(SERVER): $(OBJECTS_SERVER)
-	@ gcc    $(CFLAGS) $(SRCS_SERVER) -lmbedtls -lmbedx509 -lmbedcrypto -lpthread -o $(SERVER)
+	@ gcc    $(CFLAGS) -I$(MBEDTLS_INC) $(SRCS_SERVER) -L$(MBEDTLS_LIB) -lmbedtls -lmbedx509 -lmbedcrypto -lpthread -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
-	@ gcc -c $(CFLAGS) $< -o $@
+	@ gcc -c -I$(MBEDTLS_INC) $(CFLAGS) $< -o $@
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)
