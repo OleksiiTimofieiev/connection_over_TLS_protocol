@@ -49,7 +49,7 @@ int 	main(int argc, char **argv)
 
 	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 	{
-		perror("socket creation failed");
+		printf("Socket creation failed. ERROR: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 
