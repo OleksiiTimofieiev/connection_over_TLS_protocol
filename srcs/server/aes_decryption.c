@@ -1,4 +1,4 @@
-#include "server.h"
+#include "../../includes/server/server.h"
 
 void 	aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output)
 {

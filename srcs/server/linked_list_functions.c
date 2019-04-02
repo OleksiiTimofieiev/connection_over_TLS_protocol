@@ -1,4 +1,4 @@
-#include "server.h"
+#include "../../includes/server/server.h"
 
 /* decided to push to the head in order to speed up and have O(1) */
 void	push_front(t_data **head_ref, unsigned char *new_data)

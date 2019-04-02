@@ -1,10 +1,8 @@
-#include "server.h"
+#include "../../includes/server/server.h"
 
 /* used global variables for the signal interrupt handling and to avoid race condition */
 extern t_data 					*l_data;
 extern pthread_mutex_t 			mutex;
-pthread_mutex_t 				mutex_main;
-
 int 							sockfd;
 
 void 	sig_handle(int signal);
@@ -18,7 +16,6 @@ int 	main(int argc, char **argv)
 	/* ***************************** init mutex to avoid race condition while writing to the linked list ********************* */
 
 	pthread_mutex_init(&mutex, NULL);
-	pthread_mutex_init(&mutex_main, NULL);
 
 	/* ***************************** basic input validation ****************************************************************** */
 
@@ -50,7 +47,7 @@ int 	main(int argc, char **argv)
 
 	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 	{
-		printf("Socket creation failed. ERROR: %s\n", strerror(errno));
+		perror("socket creation failed");
 		exit(EXIT_FAILURE);
 	}
 
@@ -84,11 +81,8 @@ int 	main(int argc, char **argv)
 		if (n > 0)
 		{
 	/* **************************************** creation of the thread task ********************************************* */
-			pthread_mutex_lock(&mutex);
 
 			thread_create(thread_pool, buffer, number_of_threads);
-
-			pthread_mutex_unlock(&mutex);
 
 			n = 0;
 		}

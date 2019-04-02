@@ -1,4 +1,4 @@
-#include "client.h"
+#include "../../includes/client/client.h"
 
 bool	validation_of_program_arguments(int argc, char **argv)
 {

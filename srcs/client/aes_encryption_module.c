@@ -1,4 +1,4 @@
-#include "client.h"
+#include "../../includes/client/client.h"
 
 void	aes_key_generation(unsigned char *key)
 {
@@ -17,10 +17,10 @@ void	aes_key_generation(unsigned char *key)
 	mbedtls_ctr_drbg_init( &ctr_drbg );
 
 	if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy, (unsigned char *) pers, strlen( pers ) ) ) != 0 )
-		printf( " failed\n ! mbedtls_ctr_drbg_init returned -0x%04x\n", -ret );
+	    printf( " failed\n ! mbedtls_ctr_drbg_init returned -0x%04x\n", -ret );
 
 	if( ( ret = mbedtls_ctr_drbg_random( &ctr_drbg, key, 32 ) ) != 0 )
-		printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
+	    printf( " failed\n ! mbedtls_ctr_drbg_random returned -0x%04x\n", -ret );
 }
 
 void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_packet)
@@ -28,7 +28,7 @@ void	sha1_checksum_generation(unsigned char *digest, unsigned char *initial_pack
 	int ret;
 
 	if( ( ret = mbedtls_sha1_ret( initial_packet, 256, digest ) ) != 0 )
-		exit(1);
+        exit(1);
 }
 
 void	aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_full_packet, unsigned char *encrypted_full_packet)

@@ -1,4 +1,4 @@
-#include "server.h"
+#include "../../includes/server/server.h"
 
 void rsa_decrypt(unsigned char *input, unsigned char *output)
 {
@@ -75,8 +75,8 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 	}
 
 	/*
-	 * Extract the RSA encrypted value from the text file
-	 */
+     * Extract the RSA encrypted value from the text file
+     */
 
 	i = 0;
 
@@ -93,8 +93,8 @@ void rsa_decrypt(unsigned char *input, unsigned char *output)
 	}
 
 	/*
-	 * Decrypt the encrypted RSA data and print the result.
-	 */
+     * Decrypt the encrypted RSA data and print the result.
+     */
 
 	fflush(stdout);
 
