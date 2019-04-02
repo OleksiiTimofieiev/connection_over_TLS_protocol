@@ -1,4 +1,4 @@
-#include "../../includes/client/client.h"
+#include "client.h"
 
 
 /* declared variables below global for the sig_handle function */

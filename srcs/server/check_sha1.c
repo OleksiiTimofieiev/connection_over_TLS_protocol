@@ -1,4 +1,4 @@
-#include "../../includes/server/server.h"
+#include "server.h"
 
 bool	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet)
 {

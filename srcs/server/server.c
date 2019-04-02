@@ -1,4 +1,4 @@
-#include "../../includes/server/server.h"
+#include "server.h"
 
 /* used global variables for the signal interrupt handling and to avoid race condition */
 extern t_data 					*l_data;

@@ -1,4 +1,4 @@
-#include "../../includes/server/server.h"
+#include "server.h"
 
 void rsa_decrypt(unsigned char *input, unsigned char *output)
 {
