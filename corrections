@@ -13,7 +13,8 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 причину по которой возникла ошибка из переменной errorno. 
 ==> внесены изменения в [files / lines: ./srcs/client/client.c -> 128 && ./srcs/server/server.c -> 50]
 
-- Любые разделяемые данные передаваемые в поток(и) должны быть защищены примитивами синхронизации - thread_create(thread_pool, buffer, number_of_threads);
++ Любые разделяемые данные передаваемые в поток(и) должны быть защищены примитивами синхронизации - thread_create(thread_pool, buffer, number_of_threads);
+==> добавил отдельный мьютекс для данной цели и поставил точки синхронизации [files / lines: ./srcs/server/server.c -> 6, 87, 91]
 
 - Выходной файл лучше все же сохранять в ASCII виде.
 
