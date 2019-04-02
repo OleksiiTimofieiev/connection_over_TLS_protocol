@@ -65,7 +65,7 @@ int 	main(int argc, char **argv)
 	if (bind(sockfd, (const struct sockaddr *)&servaddr,
 				sizeof(servaddr)) != 0)
 	{
-		perror("bind failed");
+		printf("Bind failed. ERROR: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 

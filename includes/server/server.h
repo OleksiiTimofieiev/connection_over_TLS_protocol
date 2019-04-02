@@ -41,6 +41,8 @@
 /* rsa header */
 #include "mbedtls/rsa.h"
 
+#include <errno.h>
+
 #define 			PRIVATE_KEY_PATH 			"./rsa_keys/rsa_priv.txt"
 #define 			INITIAL_PACKET_SIZE         256
 #define 			DIGEST_SIZE                 16
