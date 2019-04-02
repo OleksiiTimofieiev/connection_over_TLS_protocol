@@ -50,7 +50,7 @@ int		main(int argc, char **argv)
 
 	unsigned char digest[DIGEST_SIZE];
 
-   	/* *************************************** packet + checksum ********************************* */
+	/* *************************************** packet + checksum ********************************* */
 
 	unsigned char initial_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE];
 	bzero(initial_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
@@ -64,10 +64,10 @@ int		main(int argc, char **argv)
 	unsigned char encrypted_key_with_rsa[256];
 
 	while (42)
-    {
+	{
 		/* adding value of the string iterator to the packet */
- 		counter_line_composer(initial_packet, string_iterator);
- 		
+		counter_line_composer(initial_packet, string_iterator);
+		
 		/* generation of the checksum for the packet */
 		sha1_checksum_generation(digest, initial_packet);
 
@@ -81,7 +81,7 @@ int		main(int argc, char **argv)
 		aes_encrypt(iv, key, initial_full_packet, encrypted_full_packet);
 
 		/* encryption of the aes key */
-    	rsa_encrypt(key, encrypted_key_with_rsa);
+		rsa_encrypt(key, encrypted_key_with_rsa);
 
 		/* composition of the encrypted packet */
 		memcpy(encrypted_full_packet_with_rsa_key, encrypted_full_packet, INITIAL_PACKET_SIZE + DIGEST_SIZE);
@@ -91,17 +91,17 @@ int		main(int argc, char **argv)
 
 		/* +1 to the string iterator */
 		add_to_string(string_iterator);
- 		
+		
 		 /* adding new value of the string iterator to the string */
- 		counter_line_composer(initial_packet, string_iterator);
+		counter_line_composer(initial_packet, string_iterator);
 
 		/* delay for the process */
-      	usleep(delay);
-    }      
+		usleep(delay);
+	}
 
-    close(sockfd); 
+	close(sockfd); 
 
-    return (0); 
+	return (0); 
 } 
 
 void  sig_handle(int signal)
@@ -123,15 +123,15 @@ void  sig_handle(int signal)
 
 void	init_socket(short port)
 {
-    if ( (sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 ) 
-    { 
-        printf("Socket creation failed. ERROR: %s\n", strerror(errno));
-        exit(EXIT_FAILURE); 
-    }
-  
-    memset(&servaddr, 0, sizeof(servaddr)); 
-      
-    servaddr.sin_family = AF_INET; 
-    servaddr.sin_port = htons(port); 
-    servaddr.sin_addr.s_addr = INADDR_ANY; 
+	if ( (sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0 ) 
+	{ 
+		printf("Socket creation failed. ERROR: %s\n", strerror(errno));
+		exit(EXIT_FAILURE); 
+	}
+
+	memset(&servaddr, 0, sizeof(servaddr)); 
+
+	servaddr.sin_family = AF_INET; 
+	servaddr.sin_port = htons(port); 
+	servaddr.sin_addr.s_addr = INADDR_ANY; 
 }

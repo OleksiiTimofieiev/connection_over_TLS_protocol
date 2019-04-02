@@ -22,4 +22,5 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 + Относительные пути "#include "../../includes/client/client.h". Должно быть: "client/client.h" либо "client.h""
 ==> внесены изменения в Makefile и в исходные файлы;
 
-- Смешивание табуляции и пробелов в отступах.
++ Смешивание табуляции и пробелов в отступах.
+==> внесены изменения в соответствующие файлы;
