@@ -101,6 +101,7 @@ void	sig_handle(int signal)
 	{
 		close(sockfd);
 		pthread_mutex_destroy(&mutex);
+		pthread_mutex_destroy(&mutex_main);
 
 		if (l_data)
 		{
