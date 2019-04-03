@@ -77,7 +77,7 @@ int 	main(int argc, char **argv)
 	/* ***************************************** QUEUE VARS ************************************************************** */
 
 	t_queue *queue_head = NULL;
-	bool thread_creatioin_result;
+	bool thread_creation_result;
 
 	while (42)
 	{
@@ -95,19 +95,19 @@ int 	main(int argc, char **argv)
 
 			append(&queue_head, buffer);
 
-			thread_creatioin_result = thread_create(thread_pool, buffer, number_of_threads);
+			thread_creation_result = thread_create(thread_pool, buffer, number_of_threads);
 
 			// TODO: pointer to the last element; // while adding I always work with the end;
 
-			if (thread_creatioin_result)
+			if (thread_creation_result)
 				deleteNode(&queue_head, tail);
 			else
 			{
 				current = queue_head;
 				while (current)
 				{
-					thread_creatioin_result = thread_create(thread_pool, current->data, number_of_threads);
-					if (thread_creatioin_result)
+					thread_creation_result = thread_create(thread_pool, current->data, number_of_threads);
+					if (thread_creation_result)
 					{
 						t_queue *tmp = current->next;
 						deleteNode(&queue_head, current);
