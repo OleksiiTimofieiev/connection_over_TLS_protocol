@@ -42,7 +42,7 @@ void 	*handle_new_data(void *data)
 	return (NULL);
 }
 
-void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_limit)
+bool 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_limit)
 {
 	int ret, i;
 
@@ -65,7 +65,7 @@ void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_li
 	if (i == threads_limit)
 	{
 		printf("%s\n", "No available thread.");
-		return ;
+		return (false);
 	}
 
 	/*
@@ -82,4 +82,6 @@ void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_li
 		printf("%s\n", "thread creation error");
 		exit(0);
 	}
+
+	return (true);
 }

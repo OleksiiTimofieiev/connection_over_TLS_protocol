@@ -91,7 +91,7 @@ bool 				check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_p
 void 				push_front(t_data **head_ref, unsigned char *new_data);
 void				deleteList(t_data **head_ref);
 
-void 				thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_limit);
+bool 				thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_limit);
 void 				*handle_new_data(void *data);
 
 /*					infrastructure						*/
