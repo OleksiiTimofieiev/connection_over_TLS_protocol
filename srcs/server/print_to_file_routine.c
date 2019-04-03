@@ -5,7 +5,7 @@ void	print_to_file(t_data *ptr)
 	FILE 	*fptr 	= NULL;
 	int 	i 		= 0;
 
-	fptr = fopen("UDP_INPUT", "w");
+	fptr = fopen("UDP_INPUT", "a");
 
 	if (fptr == NULL)
 	{
