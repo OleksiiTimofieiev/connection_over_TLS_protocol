@@ -31,7 +31,9 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 + Любые разделяемые данные передаваемые в поток(и) должны быть защищены примитивами синхронизации - thread_create(thread_pool, buffer, number_of_threads);
 ==> добавил отдельный мьютекс для данной цели и поставил точки синхронизации [ files / lines: ./srcs/server/server.c -> 6, 87, 91 ]
 
-- Выходной файл лучше все же сохранять в ASCII виде.
++ Выходной файл лучше все же сохранять в ASCII виде.
+==> [files / lines: ./srcs/server/linked_list_functions.c -> 21 - 24 ]
+
 
 - RSA параметры удобнее хранить в pem формате.
 

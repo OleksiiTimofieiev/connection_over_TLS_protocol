@@ -13,13 +13,15 @@ void	print_to_file(t_data *ptr)
 		exit(1);
 	}
 	
-
 	while (ptr)
 	{
 		i = 0;
 		while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
 		{
-			fprintf(fptr, "%.2x", ptr->data[i]);
+			if (isalpha(ptr->data[i]) || isdigit(ptr->data[i]))
+				fprintf(fptr, "%c", ptr->data[i]);
+			else
+				fprintf(fptr, "%c", '0');
 			i++;
 		}
 		fprintf(fptr, "%s", "\n");
