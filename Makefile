@@ -38,7 +38,7 @@ YELLOW      	= 	\033[01;38;05;226m
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
-	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_CLIENT) -L$(MBEDTLS_LIB) -lmbedtls -L$(MBEDTLS_LIB) -lmbedx509 -L$(MBEDTLS_LIB) -lmbedcrypto -o $(CLIENT)
+	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_CLIENT) ./mbedtls/lib/libmbedcrypto.a -L$(MBEDTLS_LIB) -lmbedx509 -L$(MBEDTLS_LIB) -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
