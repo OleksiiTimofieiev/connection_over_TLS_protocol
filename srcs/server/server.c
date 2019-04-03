@@ -32,7 +32,6 @@ int 	main(int argc, char **argv)
 
 	memset(thread_pool, 0x0, number_of_threads);
 
-
 	/* ***************************** init of socket ************************************************************************ */
 
 	struct 				sockaddr_in addr;
