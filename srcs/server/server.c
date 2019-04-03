@@ -97,7 +97,6 @@ int 	main(int argc, char **argv)
 
 			thread_creatioin_result = thread_create(thread_pool, buffer, number_of_threads);
 
-
 			// TODO: pointer to the last element; // while adding I always work with the end;
 
 			if (thread_creatioin_result)
@@ -112,6 +111,7 @@ int 	main(int argc, char **argv)
 					t_queue *tmp = current->next;
 					deleteNode(&queue_head, current);
 					current = tmp;
+					
 					continue;
 
 					current = current->next;

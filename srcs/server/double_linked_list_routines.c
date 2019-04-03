@@ -15,7 +15,7 @@ void	append(t_queue **head_ref, unsigned char *new_data)
 	{
 		new_node->prev = NULL;
 		*head_ref = new_node;
-		tail = new_node;
+		tail = *head_ref;
 		return;
 	}
 
