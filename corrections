@@ -43,7 +43,7 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 ==> внесены изменения в [files / lines: ./srcs/server/print_to_file_routine.c -> 21 - 24 ]
 
 - RSA параметры удобнее хранить в pem формате.
-==> Простите, не понял. Вы имеете ввиду private / public key ? 
+==> Вы имеете ввиду private / public key ? 
 
 + Относительные пути "#include "../../includes/client/client.h". Должно быть: "client/client.h" либо "client.h""
 ==> внесены изменения в Makefile и в исходные файлы;
