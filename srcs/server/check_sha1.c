@@ -2,16 +2,18 @@
 
 bool	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet)
 {
-	int i = 0;
+	int i = 256;
+	int j = 0;
 
-	while (i < 16)
+	while (j < 16)
 	{
-		if (checksum[i] != decrypted_full_packet[i])
+		if (checksum[0 + j] != decrypted_full_packet[i + j])
 			break;
 		i++;
+		j++;
 
 	}
-	if (i == 16)
+	if (j == 16)
 		return (true);
 	return (false);
 }
