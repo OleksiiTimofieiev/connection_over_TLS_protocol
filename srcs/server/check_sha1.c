@@ -1,13 +1,12 @@
 #include "server/server.h"
 
-bool	check_sha1_sum(unsigned char *checksum, const unsigned char * const decrypted_full_packet)
+bool	check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet)
 {
-	int j = 256;
 	int i = 0;
 
 	while (i < 16)
 	{
-		if (checksum[i] != decrypted_full_packet[j + i])
+		if (checksum[i] != decrypted_full_packet[i])
 			break;
 		i++;
 

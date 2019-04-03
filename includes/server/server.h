@@ -87,7 +87,7 @@ typedef	struct 		s_queue
 
 void 				rsa_decrypt(unsigned char *input, unsigned char *output);
 void 				aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
-bool 				check_sha1_sum(unsigned char *checksum, const unsigned char * const decrypted_full_packet);
+bool 				check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
 void 				push_front(t_data **head_ref, unsigned char *new_data);
 void				deleteList(t_data **head_ref);
 
