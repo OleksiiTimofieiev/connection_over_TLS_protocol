@@ -13,6 +13,7 @@ SERVER_CODE		= 	server.c \
 					check_sha1.c \
 					linked_list_functions.c \
 					thread_routines.c \
+					print_to_file_routine.c \
 			
 SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))

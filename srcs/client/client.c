@@ -1,5 +1,6 @@
 #include "client/client.h"
 
+//TODO: add to file for new inputs;
 
 /* declared variables below global for the sig_handle function */
 
@@ -40,7 +41,8 @@ int		main(int argc, char **argv)
 	/* *************************************** socket initializatiion *************************** */
 	
 	init_socket(ip_address, port);
-	free(ip_address);
+	if (ip_address)
+		free(ip_address);
 
 	/* *************************************** aes key generation ******************************* */
 

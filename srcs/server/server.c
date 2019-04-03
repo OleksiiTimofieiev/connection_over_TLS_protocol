@@ -105,35 +105,11 @@ void	sig_handle(int signal)
 
 		if (l_data)
 		{
-			FILE *fptr = NULL;
-
-			fptr = fopen("UDP_INPUT", "w");
-
-			if (fptr == NULL)
-			{
-				printf("Error!");
-				exit(1);
-			}
-
 			/* **************************************** output to file ********************************************** */
 
-			int i = 0 ;
-
-			t_data * ptr = l_data;
-
-			while (ptr)
-			{
-				i = 0;
-				while (i < (INITIAL_PACKET_SIZE + DIGEST_SIZE))
-				{
-					fprintf(fptr, "%.2x", ptr->data[i]);
-					i++;
-				}
-				fprintf(fptr, "%s", "\n");
-				ptr = ptr->next;
-			}
+			print_to_file(l_data);
+			
 			deleteList(&l_data);
-			fclose(fptr);
 		}
 		exit(0);
 	}

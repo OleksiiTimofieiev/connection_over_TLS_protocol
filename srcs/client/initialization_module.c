@@ -35,8 +35,11 @@ void	client_configuration(char **argv, unsigned char *initial_packet, int *delay
 
 	token = strtok(argv[3], delim);
 
-	if (!(*ip = (char *)malloc(sizeof(char) * (strlen(token) + 1))))
+	if (!(*ip = (char *)malloc(sizeof(char) * (strlen(token) + 1)))) 
+	{
 		*ip = NULL;
+		return ;
+	}
 
 	strcpy(*ip, token);
 	

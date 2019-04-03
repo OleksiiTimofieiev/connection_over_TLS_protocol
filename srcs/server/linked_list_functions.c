@@ -8,9 +8,12 @@ void	push_front(t_data **head_ref, unsigned char *new_data)
 	if (!(new_node = (t_data *)malloc(sizeof(t_data))))
 	{
 		printf("%s\n", "No memory left");
-		exit(0);
+		print_to_file(*head_ref);
+		deleteList(head_ref);
+		new_node = (t_data *)malloc(sizeof(t_data));
 	}
 
+	memset(new_node->data, 0x0, INITIAL_PACKET_SIZE + DIGEST_SIZE);
 	memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE + DIGEST_SIZE);
 
 	new_node->next = (*head_ref);

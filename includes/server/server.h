@@ -84,4 +84,6 @@ void				deleteList(t_data **head_ref);
 void 				thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_limit);
 void 				*handle_new_data(void *data);
 
+void 				print_to_file(t_data *ptr);
+
 #endif

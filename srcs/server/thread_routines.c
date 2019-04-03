@@ -64,7 +64,7 @@ void 	thread_create(t_thread *thread_pool, unsigned char *buffer, int threads_li
 	if (i == threads_limit)
 	{
 		printf("%s\n", "No available thread.");
-		exit(0);
+		return ;
 	}
 
 	/*
