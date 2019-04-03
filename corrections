@@ -17,7 +17,7 @@
 ==> внес изменения в [files / lines: ./srcs/server/linked_list_functions.c -> 16 ]
 
 + При сборке по-умолчанию, без каких-либо изменений - сценарий не работает. Пакет не проходит валидацию хеш-суммы.
-==> добавил директорию mbedtls к проекту (header files + *.a); Тестировал на MacOS && Debian;
+==> добавил директорию mbedtls к проекту (header files + *.a); Тестировал на MacOS & Debian;
 
 ~ Minor issues:
 
@@ -34,7 +34,7 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 ==> внесены изменения в [files / lines: ./srcs/client/client.c -> 121 && ./srcs/server/server.c -> 52, 68]
 
 + Любые разделяемые данные передаваемые в поток(и) должны быть защищены примитивами синхронизации - thread_create(thread_pool, buffer, number_of_threads);
-==> добавил отдельный мьютекс для данной цели и поставил точки синхронизации [ files / lines: ./srcs/server/server.c -> 46, 62 ]
+==> добавил отдельный мьютекс для данной цели и поставил точки синхронизации [ files / lines: ./srcs/server/server.c -> 82, 86 ]
 
 + Выходной файл лучше все же сохранять в ASCII виде.
 ==> внесены изменения в [files / lines: ./srcs/server/print_to_file_routine.c -> 21 - 24 ]
