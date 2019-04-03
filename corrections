@@ -51,3 +51,4 @@ if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation fa
 
 + Смешивание табуляции и пробелов в отступах.
 ==> внесены изменения в соответствующие файлы;
+
