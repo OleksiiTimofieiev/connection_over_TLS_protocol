@@ -38,18 +38,18 @@ YELLOW      	= 	\033[01;38;05;226m
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
-	@ gcc   -o $(CLIENT) -I$(INCLUDES)  $(SRCS_CLIENT)  -lmbedtls -lmbedx509 -lmbedcrypto $(CFLAGS)
+	@ gcc   $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_CLIENT) -L$(MBEDTLS_LIB) -lmbedtls -lmbedx509 -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
-	@ gcc -c $(CFLAGS) -I$(INCLUDES)  $< -o $@
+	@ gcc -c $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC)  $< -o $@
 
 $(SERVER): $(OBJECTS_SERVER)
-	@ gcc   -o $(SERVER) $(CFLAGS) -I$(INCLUDES) $(SRCS_SERVER)  -lmbedtls -lmbedx509 -lmbedcrypto -lpthread
+	@ gcc   $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_SERVER) -L$(MBEDTLS_LIB) -lmbedtls -lmbedx509 -lmbedcrypto -lpthread -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
-	@ gcc -c $(CFLAGS) -I$(INCLUDES)  $< -o $@
+	@ gcc -c $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $< -o $@
 
 clean:
 	@ rm -f $(OBJECTS_CLIENT)
