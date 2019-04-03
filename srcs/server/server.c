@@ -107,13 +107,14 @@ int 	main(int argc, char **argv)
 				while (current)
 				{
 					thread_creatioin_result = thread_create(thread_pool, current->data, number_of_threads);
+					if (thread_creatioin_result)
+					{
+						t_queue *tmp = current->next;
+						deleteNode(&queue_head, current);
+						current = tmp;
 
-					t_queue *tmp = current->next;
-					deleteNode(&queue_head, current);
-					current = tmp;
-					
-					continue;
-
+						continue;
+					}
 					current = current->next;
 				}
 			}
