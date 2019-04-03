@@ -1,7 +1,5 @@
 #include "client/client.h"
 
-//TODO: add to file for new inputs;
-
 /* declared variables below global for the sig_handle function */
 
 int 					sockfd; 
