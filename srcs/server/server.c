@@ -26,9 +26,6 @@ int 	main(int argc, char **argv)
 
 	pthread_mutex_init(&mutex, NULL);
 
-	
-
-
 	/* ***************************** init of thread pool ******************************************************************** */
 
 	t_thread			thread_pool[number_of_threads];

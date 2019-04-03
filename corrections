@@ -14,14 +14,18 @@
 + Кроме строки "error" в файл передается еще около 256 бинарных данных из сегмента кода (похожая проблема была на собеседовании). 
 А именно: "check_sha1_sum(&decrypted_full_packet[256], checksum) - в результате неверной передачи параметра decrypted_full_packet в результате происходит выход за пределы массива с чтением данных 
 из .rodata сегмента и UDP_INPUT выглядит вот так: error^@No available thread.^@thread creation error^@^@^AESC^C;|^@^@^@^N^@^@^@^X"
-==> [files / lines: ./srcs/server/linked_list_functions.c -> 16 ]
+==> внес изменения в [files / lines: ./srcs/server/linked_list_functions.c -> 16 ]
 
 + При сборке по-умолчанию, без каких-либо изменений - сценарий не работает. Пакет не проходит валидацию хеш-суммы.
 ==> добавил директорию mbedtls к проекту (headers + *.a); 
 
 ~ Minor issues:
 
-- Разбор параметров командной строки в Linux лучше производить с помощью getopt().
++ Разбор параметров командной строки в Linux лучше производить с помощью getopt().
+==> внес изменения в [ files / lines: ./srcs/server/server.c -> 19 ]
+==> вынес функцию парсинга в [ files / lines: ./srcs/server/parsing_with_get_opt_server.c -> 19 ]
+==> соответственно, надеюсь, Вы не будете против, изменил форматт ввода на: ./server_app -p 9999 -t 20 
+
 
 + Проверка результатов возврата ф-й для работы с сокетами должны кроме сообщения об ошибке типа "socket creation failed" возвращать системную ошибку - 
 if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation failed "); exit(EXIT_FAILURE); }
