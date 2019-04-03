@@ -10,6 +10,7 @@ void 	*handle_new_data(void *data)
 	unsigned char 		decrypted_full_packet[INITIAL_PACKET_SIZE + DIGEST_SIZE] = {0};
 	const unsigned char iv_1[16] = {0xb6, 0x58, 0x9f, 0xc6, 0xab, 0x0d, 0xc8, 0x2c, 0xf1, 0x20, 0x99, 0xd1, 0xc2, 0xd4, 0x0a, 0xb9};
 	unsigned char 		iv[16];
+	unsigned char		error_message[] = "error";
 
 	/* get the data for the thread from the void *data */
 	t_thread_data *input = (t_thread_data *)data;
@@ -33,7 +34,7 @@ void 	*handle_new_data(void *data)
 	if (check_sha1_sum(checksum, &decrypted_full_packet[256]))
 		push_front(&l_data, decrypted_full_packet);
 	else
-		push_front(&l_data, (unsigned char *)"error");
+		push_front(&l_data, error_message);
 
 	pthread_mutex_unlock(&mutex);
 

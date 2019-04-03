@@ -103,12 +103,12 @@ int 	main(int argc, char **argv)
 			else
 			{
 				current = queue_head;
+				
 				while (current)
 				{
 					pthread_mutex_lock(&mutex_main);
 
 					thread_creation_result = thread_create(thread_pool, current->data, number_of_threads);
-
 
 					if (thread_creation_result)
 					{

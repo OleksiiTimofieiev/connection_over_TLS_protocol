@@ -14,7 +14,7 @@ void	push_front(t_data **head_ref, unsigned char *new_data)
 	}
 
 	memset(new_node->data, 0x0, INITIAL_PACKET_SIZE + DIGEST_SIZE);
-	memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE + DIGEST_SIZE);
+	memcpy(new_node->data, new_data, sizeof(new_data));
 
 	new_node->next = (*head_ref);
 
