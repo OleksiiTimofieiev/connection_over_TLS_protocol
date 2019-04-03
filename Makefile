@@ -21,7 +21,7 @@ SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))
 
 MBEDTLS_INC		= 	./mbedtls/include/
-MBEDTLS_LIB		= 	./mbedtls/lib/
+MBEDTLS_LIB		= 	./mbedtls/lib
 
 INCLUDES		=	./includes/
 
@@ -38,7 +38,7 @@ YELLOW      	= 	\033[01;38;05;226m
 all: $(CLIENT) $(SERVER)
 
 $(CLIENT): $(OBJECTS_CLIENT)
-	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_CLIENT) $(MBEDTLS_LIB)libmbedtls.a $(MBEDTLS_LIB)libmbedx509.a $(MBEDTLS_LIB)libmbedcrypto.a -o $(CLIENT)
+	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_CLIENT) -L$(MBEDTLS_LIB) -lmbedtls -L$(MBEDTLS_LIB) -lmbedx509 -L$(MBEDTLS_LIB) -lmbedcrypto -o $(CLIENT)
 	@ echo  "$(YELLOW)$(CLIENT): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_CLIENT): %.o: %.c
