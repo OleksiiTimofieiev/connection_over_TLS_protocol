@@ -40,6 +40,7 @@ void 	client_configuration(char argc, char **argv, unsigned char *initial_packet
 			}
 		}
 	}
+	
 	memset(iterator, 0x0, MAX_ITERATOR_SIZE);
 	iterator[MAX_ITERATOR_SIZE - 1] = '0';
 }
