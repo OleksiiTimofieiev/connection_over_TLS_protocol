@@ -13,32 +13,32 @@
 #include <ctype.h>
 #include <signal.h>
 
-#if !defined(MBEDTLS_CONFIG_FILE)
+// #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
-#else
-#include MBEDTLS_CONFIG_FILE
-#endif
+// #else
+// #include MBEDTLS_CONFIG_FILE
+// #endif
 
-#if defined(MBEDTLS_PLATFORM_C)
+// #if defined(MBEDTLS_PLATFORM_C)
 #include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#include <stdlib.h>
-#define 	mbedtls_fprintf         fprintf
-#define 	mbedtls_printf          printf
-#define 	mbedtls_exit            exit
-#define 	MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
-#define 	MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
-#endif /* MBEDTLS_PLATFORM_C */
+// #else
+// #include <stdio.h>
+// #include <stdlib.h>
+// #define 	mbedtls_fprintf         fprintf
+// #define 	mbedtls_printf          printf
+// #define 	mbedtls_exit            exit
+// #define 	MBEDTLS_EXIT_SUCCESS    EXIT_SUCCESS
+// #define 	MBEDTLS_EXIT_FAILURE    EXIT_FAILURE
+// #endif /* MBEDTLS_PLATFORM_C */
 
 /* generate aes key */
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 
 /* hash function headers */
-#if defined(MBEDTLS_SHA1_C)
+// #if defined(MBEDTLS_SHA1_C)
 #include "mbedtls/sha1.h"
-#endif
+// #endif
 
 /* rsa header */
 #include "mbedtls/rsa.h"
