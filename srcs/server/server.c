@@ -25,6 +25,7 @@ int 	main(int argc, char **argv)
 	/* ***************************** init mutex to avoid race condition while writing to the linked list ********************* */
 
 	pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_init(&mutex_main, NULL);
 
 	/* ***************************** init of thread pool ******************************************************************** */
 
@@ -71,6 +72,11 @@ int 	main(int argc, char **argv)
 
 	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 
+	/* ***************************************** QUEUE VARS ************************************************************** */
+
+	t_queue *queue = NULL;
+	bool thread_creatioin_result;
+
 	while (42)
 	{
 		n = recvfrom(sockfd, (unsigned char *)buffer, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY,
@@ -82,7 +88,26 @@ int 	main(int argc, char **argv)
 	/* **************************************** creation of the thread task ********************************************* */
 			pthread_mutex_lock(&mutex_main);
 
-			thread_create(thread_pool, buffer, number_of_threads);
+			append(&queue, buffer);
+
+			thread_creatioin_result = thread_create(thread_pool, buffer, number_of_threads);
+
+			t_queue *current = queue;
+
+			if (thread_creatioin_result)
+			{
+				while (current)
+				{
+					if (memcmp(current->data, queue->data, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY) == 0)
+					{
+						t_queue *tmp = current->next;
+						deleteNode(&queue, current);
+						current = tmp;
+						continue ;
+					}
+					current = current->next;
+				}
+			}
 			
 			pthread_mutex_unlock(&mutex_main);
 
