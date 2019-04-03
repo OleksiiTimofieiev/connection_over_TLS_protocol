@@ -30,7 +30,7 @@ void	deleteNode(t_queue **head_ref, t_queue *del)
 {
 	/* base case */
 	if (*head_ref == NULL || del == NULL)
-		return;
+		return ;
 
 	/* If node to be deleted is head node */
 	if (*head_ref == del)
@@ -45,6 +45,8 @@ void	deleteNode(t_queue **head_ref, t_queue *del)
 		del->prev->next = del->next;
 
 	/* Finally, free the memory occupied by del*/
+	free(del->data);
 	free(del);
-	return;
+	
+	return ;
 }

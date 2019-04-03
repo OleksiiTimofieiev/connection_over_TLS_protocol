@@ -1,6 +1,7 @@
 #include "server/server.h"
 
-t_data *l_data 		= NULL;
+t_data 				*l_data = NULL;
+t_queue 			*queue	= NULL;
 pthread_mutex_t 	mutex;
 
 void 	*handle_new_data(void *data)
