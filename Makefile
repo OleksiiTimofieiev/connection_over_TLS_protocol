@@ -21,7 +21,7 @@ SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))
 
 MBEDTLS_INC		= 	./mbedtls/include/
-MBEDTLS_LIB		= 	./mbedtls/lib
+MBEDTLS_LIB		= 	./mbedtls/lib/
 
 INCLUDES		=	./includes/
 
