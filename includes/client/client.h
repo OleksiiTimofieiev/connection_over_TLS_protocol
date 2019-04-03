@@ -33,7 +33,7 @@
 
 /* generate aes key */
 #include "mbedtls/entropy.h"
-#include "mbedtls/ctr_drbg.h"
+// #include "mbedtls/ctr_drbg.h"
 
 /* hash function headers */
 // #if defined(MBEDTLS_SHA1_C)
