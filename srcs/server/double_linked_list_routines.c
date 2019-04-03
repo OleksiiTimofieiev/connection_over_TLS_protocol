@@ -1,5 +1,7 @@
 #include "server/server.h"
 
+t_queue 	*tail = NULL;
+
 void	append(t_queue **head_ref, unsigned char *new_data)
 {
 	t_queue *new_node = (t_queue *)malloc(sizeof(t_queue));
@@ -13,6 +15,7 @@ void	append(t_queue **head_ref, unsigned char *new_data)
 	{
 		new_node->prev = NULL;
 		*head_ref = new_node;
+		tail = new_node;
 		return;
 	}
 
@@ -20,6 +23,9 @@ void	append(t_queue **head_ref, unsigned char *new_data)
 		last = last->next;
 
 	last->next = new_node;
+
+	/* in order to have the ponter to the last node => O(1) for deletion if the thread was created successfully */
+	tail = new_node;
 
 	new_node->prev = last;
 
@@ -47,8 +53,6 @@ void	deleteNode(t_queue **head_ref, t_queue *del)
 	/* Finally, free the memory occupied by del*/
 	// free(del->data);
 	free(del);
-
-	return ;
 }
 
 void	queue_routine()

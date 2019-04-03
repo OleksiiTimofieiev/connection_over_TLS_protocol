@@ -2,6 +2,8 @@
 
 /* used global variables for the signal interrupt handling and to avoid race condition */
 extern t_data 					*l_data;
+extern t_queue 					*tail;
+
 extern pthread_mutex_t 			mutex;
 pthread_mutex_t 				mutex_main;
 
@@ -74,7 +76,7 @@ int 	main(int argc, char **argv)
 
 	/* ***************************************** QUEUE VARS ************************************************************** */
 
-	t_queue *queue = NULL;
+	t_queue *queue_head = NULL;
 	bool thread_creatioin_result;
 
 	while (42)
@@ -86,25 +88,32 @@ int 	main(int argc, char **argv)
 		{
 	
 	/* **************************************** creation of the thread task ********************************************* */
+			
 			pthread_mutex_lock(&mutex_main);
 
-			append(&queue, buffer);
+			t_queue *current;
+
+			append(&queue_head, buffer);
 
 			thread_creatioin_result = thread_create(thread_pool, buffer, number_of_threads);
 
-			t_queue *current = queue;
+
+			// TODO: pointer to the last element; // while adding I always work with the end;
 
 			if (thread_creatioin_result)
+				deleteNode(&queue_head, tail);
+			else
 			{
+				current = queue_head;
 				while (current)
 				{
-					if (memcmp(current->data, queue->data, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY) == 0)
-					{
-						t_queue *tmp = current->next;
-						deleteNode(&queue, current);
-						current = tmp;
-						continue ;
-					}
+					thread_creatioin_result = thread_create(thread_pool, current->data, number_of_threads);
+
+					t_queue *tmp = current->next;
+					deleteNode(&queue_head, current);
+					current = tmp;
+					continue;
+
 					current = current->next;
 				}
 			}
@@ -130,9 +139,9 @@ void	sig_handle(int signal)
 			/* **************************************** output to file ********************************************** */
 
 			print_to_file(l_data);
-			
 			deleteList(&l_data);
 		}
+		system("leaks -q server_app");
 		exit(0);
 	}
 }
