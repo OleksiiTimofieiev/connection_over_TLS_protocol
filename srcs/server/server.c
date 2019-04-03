@@ -16,30 +16,7 @@ int 	main(int argc, char **argv)
 	short				port = 0;
 	int					number_of_threads = 0;
 
-	char c;
-
-	while ((c = getopt(argc, argv, "p:t:")) != -1)
-	{
-		switch (c)
-		{
-			case 'p':
-			{
-				port = atoi(optarg);
-				break;
-			}
-			case 't':
-			{
-				number_of_threads = atoi(optarg);
-				break;
-			}
-			default:
-			{
-				printf("Usage example: ./server_app -p 9999 -t 20\n");
-				exit(0);
-				break;
-			}
-		}
-	}
+	parse_cmd_line(argc, argv, &port, &number_of_threads);
 
 	/* **************************************** signal definition ************************************************************ */
 
@@ -49,9 +26,6 @@ int 	main(int argc, char **argv)
 
 	pthread_mutex_init(&mutex, NULL);
 
-	/* ***************************** init of socket ************************************************************************ */
-
-	struct 				sockaddr_in addr;
 	
 
 
@@ -61,6 +35,10 @@ int 	main(int argc, char **argv)
 
 	memset(thread_pool, 0x0, number_of_threads);
 
+
+	/* ***************************** init of socket ************************************************************************ */
+
+	struct 				sockaddr_in addr;
 
 	/* **************************************** socket initialization ***************************************************** */
 
