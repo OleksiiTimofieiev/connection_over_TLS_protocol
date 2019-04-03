@@ -45,7 +45,7 @@ $(OBJECTS_CLIENT): %.o: %.c
 	@ gcc -c $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC)  $< -o $@
 
 $(SERVER): $(OBJECTS_SERVER)
-	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_SERVER) -L$(MBEDTLS_LIB) -lmbedtls -lmbedx509 -lmbedcrypto -lpthread -o $(SERVER)
+	@ gcc    $(CFLAGS) -I$(INCLUDES) -I$(MBEDTLS_INC) $(SRCS_SERVER) $(MBEDTLS_LIB)libmbedtls.a $(MBEDTLS_LIB)libmbedx509.a $(MBEDTLS_LIB)libmbedcrypto.a -lpthread -o $(SERVER)
 	@ echo  "$(YELLOW)$(SERVER): $(GREEN)compiled.$(RESET)"
 
 $(OBJECTS_SERVER): %.o: %.c
