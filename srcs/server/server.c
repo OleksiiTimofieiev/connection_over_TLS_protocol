@@ -2,8 +2,6 @@
 
 /* used global variables for the signal interrupt handling and to avoid race condition */
 extern t_data 					*l_data;
-extern t_queue 					*queue;
-
 extern pthread_mutex_t 			mutex;
 pthread_mutex_t 				mutex_main;
 
@@ -33,6 +31,7 @@ int 	main(int argc, char **argv)
 	t_thread			thread_pool[number_of_threads];
 
 	memset(thread_pool, 0x0, number_of_threads);
+
 
 	/* ***************************** init of socket ************************************************************************ */
 

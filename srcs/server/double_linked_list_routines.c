@@ -45,8 +45,13 @@ void	deleteNode(t_queue **head_ref, t_queue *del)
 		del->prev->next = del->next;
 
 	/* Finally, free the memory occupied by del*/
-	free(del->data);
+	// free(del->data);
 	free(del);
-	
+
 	return ;
+}
+
+void	queue_routine()
+{
+	
 }
