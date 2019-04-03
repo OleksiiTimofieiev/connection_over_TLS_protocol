@@ -1,6 +1,6 @@
 #include "server/server.h"
 
-bool	check_sha1_sum(unsigned char *checksum, const unsigned char *decrypted_full_packet)
+bool	check_sha1_sum(unsigned char *checksum, const unsigned char * const decrypted_full_packet)
 {
 	int i = 0;
 
