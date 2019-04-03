@@ -15,6 +15,7 @@ SERVER_CODE		= 	server.c \
 					thread_routines.c \
 					print_to_file_routine.c \
 					parsing_with_get_opt_server.c \
+					double_linked_list_routines.c \
 			
 SRCS_CLIENT     = 	$(addprefix ./srcs/client/, $(CLIENT_CODE))
 SRCS_SERVER     = 	$(addprefix ./srcs/server/, $(SERVER_CODE))

@@ -81,8 +81,8 @@ typedef struct 		s_data
 typedef	struct 		s_queue
 {
 	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
-	struct s_data 	*prev;
-	struct s_data 	*next;
+	struct s_queue 	*prev;
+	struct s_queue 	*next;
 }					t_queue;
 
 void 				rsa_decrypt(unsigned char *input, unsigned char *output);
@@ -98,5 +98,10 @@ void 				*handle_new_data(void *data);
 
 void 				print_to_file(t_data *ptr);
 void 				parse_cmd_line(int argc, char **argv, short *port, int *number_of_threads);
+
+/*					working with queue					*/
+
+void				append(t_queue **head_ref, unsigned char *new_data);
+void				deleteNode(t_queue **head_ref, t_queue *del);
 
 #endif
