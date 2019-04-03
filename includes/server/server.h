@@ -76,6 +76,15 @@ typedef struct 		s_data
 	struct s_data 	*next;
 }					t_data;
 
+/* queue abstract type */
+
+typedef	struct 		s_queue
+{
+	unsigned char 	data[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
+	struct s_data 	*prev;
+	struct s_data 	*next;
+}					t_queue;
+
 void 				rsa_decrypt(unsigned char *input, unsigned char *output);
 void 				aes_decrypt(unsigned char *iv, unsigned char *key, unsigned char *input, unsigned char *output);
 bool 				check_sha1_sum(unsigned char *checksum, unsigned char *decrypted_full_packet);
