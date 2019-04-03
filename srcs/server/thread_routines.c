@@ -32,9 +32,9 @@ void 	*handle_new_data(void *data)
 
 	/* checking the checksum and adding to the linked list if valid checksum */
 	if (check_sha1_sum(checksum, &decrypted_full_packet[256]))
-		push_front(&l_data, decrypted_full_packet);
+		push_front(&l_data, decrypted_full_packet, false);
 	else
-		push_front(&l_data, error_message);
+		push_front(&l_data, error_message, true);
 
 	pthread_mutex_unlock(&mutex);
 

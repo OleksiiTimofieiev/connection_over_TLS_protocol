@@ -1,7 +1,7 @@
 #include "server/server.h"
 
 /* decided to push to the head in order to speed up and have O(1) */
-void	push_front(t_data **head_ref, unsigned char *new_data)
+void	push_front(t_data **head_ref, unsigned char *new_data, bool error)
 {
 	t_data *new_node;
 
@@ -14,7 +14,10 @@ void	push_front(t_data **head_ref, unsigned char *new_data)
 	}
 
 	memset(new_node->data, 0x0, INITIAL_PACKET_SIZE + DIGEST_SIZE);
-	memcpy(new_node->data, new_data, sizeof(new_data));
+	if (error == false)
+		memcpy(new_node->data, new_data, INITIAL_PACKET_SIZE + DIGEST_SIZE);
+	else
+		memcpy(new_node->data, new_data, 5);
 
 	new_node->next = (*head_ref);
 
