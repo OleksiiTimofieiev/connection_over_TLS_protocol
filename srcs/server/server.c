@@ -11,6 +11,36 @@ void 	sig_handle(int signal);
 
 int 	main(int argc, char **argv)
 {
+	/* ***************************** parsing of the command line ************************************************************* */
+
+	short				port = 0;
+	int					number_of_threads = 0;
+
+	char c;
+
+	while ((c = getopt(argc, argv, "p:t:")) != -1)
+	{
+		switch (c)
+		{
+			case 'p':
+			{
+				port = atoi(optarg);
+				break;
+			}
+			case 't':
+			{
+				number_of_threads = atoi(optarg);
+				break;
+			}
+			default:
+			{
+				printf("Usage example: ./server_app -p 9999 -t 20\n");
+				exit(0);
+				break;
+			}
+		}
+	}
+
 	/* **************************************** signal definition ************************************************************ */
 
 	signal(SIGINT, &sig_handle);
@@ -19,18 +49,11 @@ int 	main(int argc, char **argv)
 
 	pthread_mutex_init(&mutex, NULL);
 
-	/* ***************************** basic input validation ****************************************************************** */
+	/* ***************************** init of socket ************************************************************************ */
 
-	if (argc != 3)
-	{
-		printf("Invalid quantity of arguments\nUsage: ./server_app <port> <quantity of threads>");
-		exit(0);
-	}
+	struct 				sockaddr_in addr;
+	
 
-	/* ***************************** parsing of the command line ************************************************************* */
-
-	short				port = atoi(argv[1]);
-	int					number_of_threads = atoi(argv[2]);
 
 	/* ***************************** init of thread pool ******************************************************************** */
 
@@ -38,10 +61,6 @@ int 	main(int argc, char **argv)
 
 	memset(thread_pool, 0x0, number_of_threads);
 
-	/* ***************************** init of socket ************************************************************************ */
-
-	struct 				sockaddr_in addr;
-	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
 
 	/* **************************************** socket initialization ***************************************************** */
 
@@ -75,6 +94,8 @@ int 	main(int argc, char **argv)
 
 	/* **************************************** DATAGRAM RECV ROUTINE **************************************************** */
 
+	unsigned char		buffer[INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY];
+
 	while (42)
 	{
 		n = recvfrom(sockfd, (unsigned char *)buffer, INITIAL_PACKET_SIZE + DIGEST_SIZE + LEN_OF_ENCPYPTED_AES_KEY,
@@ -82,6 +103,7 @@ int 	main(int argc, char **argv)
 					(socklen_t *)&addr_len);
 		if (n > 0)
 		{
+	
 	/* **************************************** creation of the thread task ********************************************* */
 			pthread_mutex_lock(&mutex_main);
 
