@@ -26,6 +26,10 @@
 ==> вынес функцию парсинга в [ files / lines: ./srcs/server/parsing_with_get_opt_server.c -> 19 ]
 ==> соответственно, надеюсь, Вы не будете против, изменил форматт ввода на: ./server_app -p 9999 -t 20 
 
+==> внес изменения в [ files / lines: ./srcs/client/client.c -> 29 ]
+==> вынес функцию парсинга в [ files / lines: ./srcs/client/initialization_module.c ]
+==> соответственно, надеюсь, Вы не будете против, изменил форматт ввода на: ./client_app -u 12345678 -d 1 -i 127.0.0.1 -p 9999
+
 
 + Проверка результатов возврата ф-й для работы с сокетами должны кроме сообщения об ошибке типа "socket creation failed" возвращать системную ошибку - 
 if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) \{ perror("socket creation failed "); exit(EXIT_FAILURE); }

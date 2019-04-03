@@ -24,7 +24,7 @@ MBEDTLS_LIB		= 	./mbedtls/2.13.0/lib
 
 INCLUDES		=	./includes/
 
-CFLAGS			= 	-Wall -Wextra -Werror
+# CFLAGS			= 	-Wall -Wextra -Werror
 
 OBJECTS_CLIENT 	= 	$(SRCS_CLIENT:.c=.o)
 OBJECTS_SERVER 	= 	$(SRCS_SERVER:.c=.o)

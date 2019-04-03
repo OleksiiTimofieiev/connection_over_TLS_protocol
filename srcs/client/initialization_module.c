@@ -1,53 +1,45 @@
 #include "client/client.h"
 
-bool	validation_of_program_arguments(int argc, char **argv)
+void 	client_configuration(char argc, char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator, char **ip_address)
 {
-	if 		(argc != 4) 									
+	char c;
+	char *user = NULL;
+
+	while ((c = getopt(argc, argv, "u:d:i:p:")) != -1)
 	{
-		printf("error: %s\n", "Not full command arguments.");
-		return (false);
+		switch (c)
+		{
+			case 'd':
+			{
+				*delay = atoi(optarg);
+				break;
+			}
+			case 'u':
+			{
+				user = strdup(optarg);
+				memset(initial_packet, 0x0, 8);
+				memcpy(initial_packet, user, 8);
+				free(user);
+				break;
+			}
+			case 'i':
+			{
+				*ip_address = strdup(optarg);
+				break;
+			}
+			case 'p':
+			{
+				*port = atoi(optarg);
+				break;
+			}
+			default:
+			{
+				printf("Usage example: ./client_app -u xxx -d 1 -i 127.0.0.1 -p 9999\n");
+				exit(0);
+				break;
+			}
+		}
 	}
-	else if (strlen(argv[1]) > 8)
-	{
-		printf("error: %s\n", "Client id has to be in limits of 8 chars and not NULL.");
-		return (false);
-	} 	
-	else if (atoi(argv[2]) <= 0)
-	{
-		printf("error: %s\n", "Delay parameter has to be > 0.");
-		return (false);
-	}
-	return 	(true);
-}
-
-void	client_configuration(char **argv, unsigned char *initial_packet, int *delay, short *port, unsigned char *iterator, char **ip)
-{
-	char *token = NULL;
-	char delim[] = ":";
-
-	memset(initial_packet, 0x0, 8);
-	memcpy(initial_packet, argv[1], strlen(argv[1]));
-
-	/* 
-	** usleep() takes microseconds, 
-	** so we have to multiply the input by 1000 in order to sleep in milliseconds. 
-	*/
-
-	token = strtok(argv[3], delim);
-
-	if (!(*ip = (char *)malloc(sizeof(char) * (strlen(token) + 1)))) 
-	{
-		*ip = NULL;
-		return ;
-	}
-
-	strcpy(*ip, token);
-	
-	token = strtok(NULL, delim);
-	
-	*port = atoi(token);
-	*delay = atoi(argv[2]) * 1000;
-
 	memset(iterator, 0x0, MAX_ITERATOR_SIZE);
 	iterator[MAX_ITERATOR_SIZE - 1] = '0';
 }

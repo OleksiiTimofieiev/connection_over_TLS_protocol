@@ -24,17 +24,9 @@ int		main(int argc, char **argv)
 
 	bzero(initial_packet, INITIAL_PACKET_SIZE);
 
-	/* **************************************** validation *************************************** */	
-
-	if (!(validation_of_program_arguments(argc, argv)))
-	{
-		printf("%s\n", "usage: ./client_app <id> <delay> <ip:port>");
-		exit (0);
-	}
-
 	/* **************************************** configuration routines ************************** */
 
-	client_configuration(argv, initial_packet, &delay, &port, string_iterator, &ip_address);
+	client_configuration(argc, argv, initial_packet, &delay, &port, string_iterator, &ip_address);
 
 	/* *************************************** socket initializatiion *************************** */
 	
