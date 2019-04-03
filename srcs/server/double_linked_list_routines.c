@@ -54,8 +54,3 @@ void	deleteNode(t_queue **head_ref, t_queue *del)
 	// free(del->data);
 	free(del);
 }
-
-void	queue_routine()
-{
-	
-}

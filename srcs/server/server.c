@@ -86,7 +86,6 @@ int 	main(int argc, char **argv)
 					(socklen_t *)&addr_len);
 		if (n > 0)
 		{
-	
 	/* **************************************** creation of the thread task ********************************************* */
 			
 			pthread_mutex_lock(&mutex_main);
@@ -97,7 +96,7 @@ int 	main(int argc, char **argv)
 
 			thread_creation_result = thread_create(thread_pool, buffer, number_of_threads);
 
-			// TODO: pointer to the last element; // while adding I always work with the end;
+			pthread_mutex_unlock(&mutex_main);
 
 			if (thread_creation_result)
 				deleteNode(&queue_head, tail);
@@ -106,7 +105,11 @@ int 	main(int argc, char **argv)
 				current = queue_head;
 				while (current)
 				{
+					pthread_mutex_lock(&mutex_main);
+
 					thread_creation_result = thread_create(thread_pool, current->data, number_of_threads);
+
+
 					if (thread_creation_result)
 					{
 						t_queue *tmp = current->next;
@@ -116,11 +119,11 @@ int 	main(int argc, char **argv)
 						continue;
 					}
 					current = current->next;
+					
+					pthread_mutex_unlock(&mutex_main);
 				}
 			}
 			
-			pthread_mutex_unlock(&mutex_main);
-
 			n = 0;
 		}
 	}

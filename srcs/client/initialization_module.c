@@ -34,7 +34,7 @@ void 	client_configuration(char argc, char **argv, unsigned char *initial_packet
 			}
 			default:
 			{
-				printf("Usage example: ./client_app -u xxx -d 1 -i 127.0.0.1 -p 9999\n");
+				printf("Usage example: ./client_app -u xxxxxxxx -d 1 -i 127.0.0.1 -p 9999\n");
 				exit(0);
 				break;
 			}

@@ -66,5 +66,4 @@ void		aes_encrypt(unsigned char *iv, unsigned char *key, unsigned char *initial_
 void		rsa_encrypt(unsigned char *intput, unsigned char *output);
 
 
-
 #endif
